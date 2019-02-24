@@ -29,14 +29,60 @@ page-lichhoc-detail {
     display: none !important
   }
 
+
+  .dataInfo-sinhvien {
+    padding: 0 !important
+  }
+
+  .sv-list {
+    padding: 0 !important;
+    counter-reset: svlist;
+    list-style: none !important
+  }
+
+  /*.sv-list > li{
+      margin-left: 25px!important;
+      padding-left:5px
+  }*/
+  .sv-list>li {
+    padding: 8px 8px 8px 20px;
+  }
+
+  .sv-list>li:before {
+    counter-increment: svlist;
+    content: counter(svlist);
+    position: absolute;
+    left: 0;
+    top: 0;
+  }
+
+  .sv-list>li.stt_1 {
+    background: rgb(207, 236, 212)
+  }
+
+  .sv-title {
+    font-size: 16px !important;
+    margin-bottom: 0 !important
+  }
+
+  .sv-masv {
+    color: #999;
+    font-size: 14px !important
+  }
+
+  .sv-ngaysinh {
+    color: #999;
+    font-size: 14px !important
+  }
+
   .save-diemdanh {
     list-style: none !important;
     position: fixed !important;
     bottom: 0;
     left: 0;
     right: 0;
-    height: 60px;
-    padding: 8px 30px;
+    height: 50px;
+    padding: 2px 30px;
     background: rgba(255, 255, 255, .95);
     box-shadow: 0 -5px 5px -5px rgba(80, 80, 80, 0.12) !important;
     text-align: right

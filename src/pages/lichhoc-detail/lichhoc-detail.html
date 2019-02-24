@@ -32,12 +32,12 @@
     </div>
 
     <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
-      <div class="lop-info">
+      <!--<div class="lop-info">
         <h3>{{lopInfo.TenLop}}</h3>
         <div class="year">{{lopInfo.NienKhoa}}</div>
-      </div>
+      </div>-->
       <ol class="sv-list" *ngIf="CTDD.length > 0">
-        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="stt_CTDD[k]['TrangThai']">
+        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="stt_{{CTDD[k]['TrangThai']}}">
           <h4 class="m-box-title sv-title">
             {{sv.HoTen}}
             <span class="sv-masv">{{sv.MaSV}}</span>
