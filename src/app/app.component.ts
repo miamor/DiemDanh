@@ -38,9 +38,9 @@ export class MyApp {
     pages: PageInterface[] = [
         { title: 'Home', component: HomePage },
         { title: 'MonHoc', component: MonHocPage },
-        { title: 'LopMonHoc', component: LopMonHocPage },
     ];
     loggedInPages: PageInterface[] = [
+        { title: 'LopMonHoc', component: LopMonHocPage },
     ];
     loggedOutPages: PageInterface[] = [
         { title: 'Login', component: LoginPage },

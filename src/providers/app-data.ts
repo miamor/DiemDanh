@@ -13,7 +13,7 @@ import 'rxjs/add/observable/of';
 
 @Injectable()
 export class AppData {
-    data: any;
+    
     HAS_LOGGED_IN = 'hasLoggedIn';
     user_info: any;
     userID: any;
@@ -24,8 +24,10 @@ export class AppData {
         public http: Http
     ) {
         this.getUserInfo().then((data) => {
-            this.user_info = data;
-            this.userID = data['MaGV'];
+            if (data) {
+                this.user_info = data;
+                this.userID = data['MaGV'];
+            }
         });
     }
 
