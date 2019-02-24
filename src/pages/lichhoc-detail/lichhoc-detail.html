@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="book-div" *ngIf="dataInfo">
+      {{title}}
+      <div class="clearfix"></div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="dataInfo-detail" *ngIf="dataInfo">
+
+    <div class="custom-tabs">
+      <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
+        {{tab.value}}
+      </a>
+    </div>
+
+    <div *ngIf="tabID == 'about'" class="custom-tabs-content dataInfo-about">
+      <h4 class="b-box-title iti-title">{{dataInfo.Ngay}}</h4>
+      <div class="b-box-content iti-content">
+        <div class="iti-des">
+          Phòng học: {{dataInfo.Phonghoc}}
+        </div>
+        <div class="iti-start">
+          Tiết bắt đầu: {{dataInfo.TietBatDau}}
+        </div>
+        <div class="iti-end">
+          Tiết kết thúc: {{dataInfo.TietKetThuc}}
+        </div>
+      </div>
+    </div>
+
+    <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
+      <div class="lop-info">
+        <h3>{{lopInfo.TenLop}}</h3>
+        <div class="year">{{lopInfo.NienKhoa}}</div>
+      </div>
+      <ol class="sv-list" *ngIf="CTDD.length > 0">
+        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="stt_CTDD[k]['TrangThai']">
+          <h4 class="m-box-title sv-title">
+            {{sv.HoTen}}
+            <span class="sv-masv">{{sv.MaSV}}</span>
+          </h4>
+          <div class="sv-ngaysinh">{{sv.NgaySinh}}</div>
+          <div class="sv-stt">
+            {{CTDD[k]['TrangThai']}}
+          </div>
+          <div class="sv-note">
+            {{CTDD[k]['GhiChu']}}
+          </div>
+        </li>
+      </ol>
+
+      <div class="save-diemdanh" *ngIf="CTDD.length > 0">
+        <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
+      </div>
+    </div>
+
+
+  </div>
+</ion-content>

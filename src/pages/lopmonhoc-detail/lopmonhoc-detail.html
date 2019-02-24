@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar>
+    <ion-title class="book-div" *ngIf="dataInfo">
+      {{title}}
+      <div class="clearfix"></div>
+    </ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <div class="dataInfo-detail" *ngIf="dataInfo">
+    <!--<div class="dataInfo-basic-info">
+      <h1>{{dataInfo.title}}</h1>
+    </div>-->
+
+    <div class="custom-tabs">
+      <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
+        {{tab.value}}
+      </a>
+    </div>
+
+
+    <div *ngIf="tabID == 'overview'" #overview class="custom-tabs-content dataInfo-overview">
+      <div class="dataInfo-overview-one">
+        <ion-icon name="calendar"></ion-icon> Tổng số buổi: {{dataInfo.TongSoBuoi}}
+      </div>
+      <div class="dataInfo-overview-one">
+        <ion-icon name="user"></ion-icon> GV chính: {{dataInfo.TenGVC}}
+      </div>
+      <div class="dataInfo-overview-one">
+        <ion-icon name="user"></ion-icon> Trợ giảng: {{dataInfo.TenGVP}}
+      </div>
+      <div class="dataInfo-overview-one">
+        <ion-icon name="people"></ion-icon> Lớp: {{dataInfo.TenLop}} ({{dataInfo.NienKhoa}})
+      </div>
+
+    </div>
+
+    <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">
+      <ul>
+        <li class="b-box" *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)">
+          <h4 class="b-box-title iti-title">{{itn.Ngay}}</h4>
+          <div class="b-box-content iti-content">
+            <div class="iti-des">
+              Phòng học: {{itn.Phonghoc}}
+            </div>
+            <div class="iti-start">
+              Tiết bắt đầu: {{itn.TietBatDau}}
+            </div>
+            <div class="iti-end">
+              Tiết kết thúc: {{itn.TietKetThuc}}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+    <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
+      <!--<div class="lop-info">
+        <h3>{{dataInfo.TenLop}}</h3>
+        <div class="year">{{dataInfo.NienKhoa}}</div>
+      </div>-->
+      <ol class="sv-list" *ngIf="dataInfo.sinhvien.length > 0">
+        <li class="m-box" *ngFor="let sv of dataInfo.sinhvien">
+          <h4 class="m-box-title sv-title">
+            {{sv.HoTen}}
+            <span class="sv-masv">{{sv.MaSV}}</span>
+          </h4>
+          <div class="sv-ngaysinh">{{sv.NgaySinh}}</div>
+        </li>
+      </ol>
+    </div>
+
+
+  </div>
+</ion-content>

@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Lớp đảm nhiệm
+      <div class="clearfix"></div>
+    </ion-title>
+
+    <!--<button ion-button menuToggle>
+            <ion-icon name="menu"></ion-icon>
+        </button>
+
+        <ion-toolbar no-border-top>
+            <ion-searchbar color="primary" [(ngModel)]="queryText" (ionInput)="updateList()" placeholder="Bạn muốn đi đâu?">
+            </ion-searchbar>
+        </ion-toolbar>
+
+        <ion-buttons end>
+            <button ion-button icon-only (click)="presentFilter()">
+                <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
+            </button>
+        </ion-buttons>-->
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="no-scroll">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+  <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
+    <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}" *ngFor="let oneData of dataList" #slidingItem>
+      <button ion-item (click)="goToDetail(oneData)">
+        <div class="oneData-one-info">
+          <h3>
+            <span class="malh">{{oneData.MaLMH}}</span> {{oneData.TenMH}}
+          </h3>
+          <div class="more-info">
+            <div class="sotinchi">
+              Số tín chỉ: {{oneData.SoTinChi}}
+            </div>
+            <div class="sotinchi">
+              GV chính: {{oneData.TenGVC}}
+            </div>
+            <div class="sotinchi">
+              GV phụ: {{oneData.TenGVP}}
+            </div>
+          </div>
+        </div>
+      </button>
+
+      <!--<ion-item-options>
+                <button ion-button color="favorite" (click)="addFavorite(slidingItem, oneData)" *ngIf="segment === 'all'">
+                    Favorite
+                </button>
+                <button ion-button color="danger" (click)="removeFavorite(slidingItem, oneData, 'Remove Favorite')" *ngIf="segment === 'favorites'">
+                    Remove
+                </button>
+            </ion-item-options>-->
+
+    </ion-item-sliding>
+
+  </ion-list>
+
+
+
+  <ion-list-header [hidden]="shownData > 0">
+    No data found
+  </ion-list-header>
+
+
+</ion-content>

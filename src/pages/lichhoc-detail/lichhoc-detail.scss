@@ -1,0 +1,48 @@
+page-lichhoc-detail {
+  .scroll-content {
+    *background: #fff !important;
+    padding: 0 0 16px !important
+  }
+
+  h1 {
+    font-size: 21px !important;
+    color: #14b66a
+  }
+
+  .custom-tabs-content {
+    box-shadow: none !important;
+    padding: 10px 15px !important;
+    margin: 0;
+    text-align: justify !important
+  }
+
+  h4 {
+    font-size: 15px !important
+  }
+
+  h5 {
+    font-size: 14px !important;
+    margin: 4px 0 !important
+  }
+
+  .alert-message {
+    display: none !important
+  }
+
+  .save-diemdanh {
+    list-style: none !important;
+    position: fixed !important;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 60px;
+    padding: 8px 30px;
+    background: rgba(255, 255, 255, .95);
+    box-shadow: 0 -5px 5px -5px rgba(80, 80, 80, 0.12) !important;
+    text-align: right
+  }
+
+  .save-diemdanh button {
+    margin: right !important
+  }
+}

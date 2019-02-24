@@ -14,3 +14,252 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+
+.alert-message{padding-bottom:5px!important;border:0!important}
+
+// Media of at most the maximum breakpoint width. No query for the largest breakpoint.
+// Makes the @content apply to the given breakpoint and narrower.
+@mixin media-breakpoint-down($name, $breakpoints: $grid-breakpoints) {
+    $max: breakpoint-max($name, $breakpoints);
+    @if $max {
+        @media (max-width: $max) {
+            @content;
+        }
+    }
+    @else {
+        @content;
+    }
+}
+
+// Name of the next breakpoint, or null for the last breakpoint.
+//
+//    >> breakpoint-next(sm)
+//    md
+//    >> breakpoint-next(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    md
+//    >> breakpoint-next(sm, $breakpoint-names: (xs sm md lg xl))
+//    md
+@function breakpoint-next($name, $breakpoints: $grid-breakpoints, $breakpoint-names: map-keys($breakpoints)) {
+    $n: index($breakpoint-names, $name);
+    @return if($n < length($breakpoint-names), nth($breakpoint-names, $n + 1), null);
+}
+
+// Maximum breakpoint width. Null for the largest (last) breakpoint.
+// The maximum value is calculated as the minimum of the next one less 0.1.
+//
+//    >> breakpoint-max(sm, (xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px))
+//    767px
+@function breakpoint-max($name, $breakpoints: $grid-breakpoints) {
+    $next: breakpoint-next($name, $breakpoints);
+    @return if($next, breakpoint-min($next, $breakpoints) - 1px, null);
+}
+
+// Creates text alignment classes based on screen size
+// TODO this would be nice to add to the framework
+@each $breakpoint in map-keys($grid-breakpoints) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+    @include media-breakpoint-up($breakpoint, $grid-breakpoints) {
+        // Provide text `[text-{bp}]` attributes for aligning text based on screen size
+        [text#{$infix}-center] {
+            text-align: center;
+        }
+        [text#{$infix}-left] {
+            text-align: left;
+        }
+        [text#{$infix}-right] {
+            text-align: right;
+        }
+        [hidden#{$infix}-up] {
+            display: none;
+        }
+    }
+    @include media-breakpoint-down($breakpoint, $grid-breakpoints) {
+        [hidden#{$infix}-down] {
+            display: none;
+        }
+    }
+}
+
+.select-alert .alert-message {
+    display: none
+}
+
+body {
+    color: #303030
+}
+
+* {
+    line-height: 24px;
+    font-size: 14px
+}
+
+a {
+    text-decoration: none !important
+}
+
+h4 {
+    margin: 5px 0 !important
+}
+
+#ion-diagnostics-toast {
+    margin-top: -20px !important
+}
+
+ul {
+    margin: 0;
+    list-style: none;
+    padding: 0
+}
+
+.hidden {
+    display: none !important
+}
+
+.header-md:after {
+    background: transparent !important;
+    box-shadow: none !important
+}
+
+
+/*.header-md *{color:#222!important}
+.toolbar-background-md{background:#fff!important;border-bottom:1px solid #ddd}
+*/
+
+.clearfix,
+.clear {
+    clear: both !important
+}
+
+.custom-tabs {
+    position: sticky;
+    top: 0;
+    height: 44px;
+    background: rgba(255,255,255,.95);
+    left: 0;
+    right: 0;
+    *border-bottom: 1px solid #eee;
+    z-index: 10;
+    box-shadow: 0 3px 3px -3px rgba(0, 0, 0, .2);
+    text-align: center
+}
+
+.custom-tabs a {
+    position: relative;
+    text-align: center;
+    display: inline-block;
+    color: #929292;
+    /*font-weight: 600;*/
+    font-size: 14px;
+    text-transform: uppercase;
+    border-bottom: 2px solid transparent;
+    height: 100%;
+    padding: 10px 10px 3px;
+    cursor: pointer;
+    margin-bottom: -1px
+}
+
+.custom-tabs a.active {
+    color: color($colors, primary);
+    border-bottom-color: color($colors, primary)
+}
+
+.custom-tabs-content {
+    margin-top: 20px
+}
+
+.v-box {
+    margin: 15px 0 30px
+}
+
+.v-box-title {
+    margin: 0 0 10px;
+    padding-bottom: 7px;
+    border-bottom: 1px solid color($colors, primary);
+    color: color($colors, primary)
+}
+
+.v-box-title .icon {
+    float: right
+}
+
+.no-padding {
+    padding: 0
+}
+
+.no-padding-top {
+    padding-top: 0
+}
+
+.no-padding-bottom {
+    padding-bottom: 0
+}
+
+.no-padding-right {
+    padding-right: 0
+}
+
+.no-padding-left {
+    padding-left: 0
+}
+
+.outer-content {
+    background: #EDEDED
+}
+
+.menu-inner .list-header-md {
+    margin: 0 !important;
+    background: transparent !important;
+    border: 1px solid #dedede;
+    border-width: 0 0 1px !important
+}
+
+.menu-inner .list-header-md .label-md {
+    margin: 0;
+    font-size: 13px;
+    font-weight: 600
+}
+
+.menu-inner .list-md {
+    border: 1px solid #dedede;
+    border-width: 0 0 1px;
+    margin: 0 !important
+}
+
+.list-md .item-block .item-inner {
+    border-width:0!important
+}
+
+.menu-inner .item-md .item-inner {
+    margin: 0 0 0 5px !important;
+    /*border: 1px solid #eee;
+    border-width: 0 0 1px !important*/
+    border-width:0!important
+}
+
+.menu-inner .item-md .item-inner:last-child {
+    border-width: 0
+}
+
+/*.ion-page .item-md {
+    padding: 0 !important
+}*/
+
+.searchbar-md .searchbar-input {
+    *background-color: transparent;
+    box-shadow: none !important;
+    *color: #eee !important
+}
+
+ion-content {
+    background: #EDEDED !important
+}
+
+
+/*.searchbar-md .searchbar-input:focus {
+    background-color: #fff;
+    color: #141414!important
+}
+
+.searchbar-md .searchbar-input::-moz-placeholder {
+    color: #eee!important
+}*/

@@ -1,0 +1,121 @@
+/*h3.v-box-title{background: color($colors, primary);color:#fff;margin:0 -16px 10px;font-size:18px;padding:8px 16px}
+*/
+
+page-lopmonhoc-detail {
+  .scroll-content {
+    *background: #fff !important;
+    padding: 0 0 16px !important
+  }
+
+  .v-box-title {
+    font-size: 17px !important
+  }
+
+  h1 {
+    font-size: 21px !important;
+    color: #14b66a
+  }
+
+  .custom-tabs-content {
+    box-shadow: none !important;
+    padding: 10px 15px !important;
+    margin: 0;
+    text-align: justify !important
+  }
+
+  .v-box {
+    background: #fff;
+    border: 1px solid #dedede;
+    border-width: 1px 0;
+    margin: 20px 0;
+    padding: 10px 10px 10px
+  }
+
+  .tour-overview-one {
+    border-radius: 3px;
+    background: #f3f3f3;
+    ;
+    color: #484848;
+    *font-size: 13px;
+    padding: 4px 10px 5px;
+    margin: 3px 0
+  }
+
+  .tour-overview-one .icon {
+    width: 14px !important;
+    float: left;
+    margin: 3px 3px 0 0
+  }
+
+  h4 {
+    font-size: 17px !important
+  }
+
+  h5 {
+    font-size: 15px !important;
+    margin: 4px 0 !important
+  }
+
+
+  .b-box {
+    position: relative;
+    border-left: 2px solid rgb(27, 155, 112);
+    padding-left: 14px;
+    margin-bottom: -10px;
+    padding-bottom: 20px
+  }
+
+  .b-box:last-child {
+    margin-bottom: 0 !important;
+    padding-bottom: 0 !important
+  }
+
+  .b-box:before {
+    content: '';
+    position: absolute;
+    top: 2px;
+    left: -8px;
+    background: rgb(27, 155, 112);
+    width: 16px;
+    height: 16px;
+    border-radius: 100%
+  }
+
+  .b-box-title {
+    /*margin-bottom: 0 !important;
+    /*color:color($colors, primary)*/
+    color: rgb(19, 124, 89);
+    font-weight: 600
+  }
+
+  .b-box-content {
+    padding-left: 10px;
+    font-size: 13px;
+    color: #777
+  }
+
+  .dataInfo-lichhoc {
+    padding-left: 20px !important
+  }
+
+  .lop-info h3{font-size:18px;margin:5px 0 0!important}
+
+  .sv-list {
+    padding-left: 25px
+  }
+
+  .sv-title {
+    font-size: 16px !important;
+    margin-bottom: 0 !important
+  }
+
+  .sv-masv {
+    color: #999;
+    font-size: 14px !important
+  }
+
+  .sv-ngaysinh {
+    color: #999;
+    font-size: 14px !important
+  }
+}
