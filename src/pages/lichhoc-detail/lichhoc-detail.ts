@@ -47,12 +47,18 @@ export class LichHocDetailPage {
         this.dataInfo['title'] = this.title;
         this.lopInfo = this.navParams.data.lopInfo;
 
-        for (let i = 0; i < this.lopInfo.sinhvien.length; i++) {
-            let maSV = this.lopInfo.sinhvien[i].MaSV;
-            this.CTDD[i] = {
-                MaSV: maSV,
-                TrangThai: 0,
-                GhiChu: ''
+        if (this.dataInfo.DaDiemDanh == true) {
+            this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
+                this.CTDD = data;
+            });
+        } else {
+            for (let i = 0; i < this.lopInfo.sinhvien.length; i++) {
+                let maSV = this.lopInfo.sinhvien[i].MaSV;
+                this.CTDD[i] = {
+                    MaSV: maSV,
+                    TrangThai: 0,
+                    GhiChu: ''
+                }
             }
         }
 

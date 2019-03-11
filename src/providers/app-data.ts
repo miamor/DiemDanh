@@ -9,6 +9,7 @@ import { Http } from '@angular/http';
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/observable/of';
+//import { c } from '@angular/core/src/render3';
 
 
 @Injectable()
@@ -77,6 +78,24 @@ export class AppData {
         })
     }
 
+    loadSinhVienLMH(MaLopMH: string): any {
+        return this.http.post('http://localhost/DiemDanh/api/sinhvien/get_by_malmh.php', {MaLopMH: MaLopMH}).map((res: any) => {
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })
+    }
+
+    getChiTietDiemDanh(MaLichHoc: string): any {
+        return this.http.post('http://localhost/DiemDanh/api/diemdanh/get_by_malichhoc.php', {MaLichHoc: MaLichHoc}).map((res: any) => {
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })
+    }
+
     submitDiemDanh(params: any): any {
         console.log(params);
         return this.http.post('http://localhost/DiemDanh/api/diemdanh/submit.php', params).map((res: any) => {
@@ -92,7 +111,13 @@ export class AppData {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this.http.post('http://localhost/DiemDanh/api/login.php', params).map(res => res.json())/*.subscribe(response => {
+        return this.http.post('http://localhost/DiemDanh/api/login.php', params).map((res: any) => {
+            console.log(res);
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })/*.subscribe(response => {
             console.log(response);
             if (response.status == 'success') {
                 this.storage.set(this.HAS_LOGGED_IN, true);
@@ -108,7 +133,8 @@ export class AppData {
 
     hasLoggedIn(): Promise<boolean> {
         return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-            return value === true;
+            console.log(value)
+            return value == true;
         });
     };
 

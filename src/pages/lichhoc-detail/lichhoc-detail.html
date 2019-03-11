@@ -37,7 +37,7 @@
         <div class="year">{{lopInfo.NienKhoa}}</div>
       </div>-->
       <ol class="sv-list" *ngIf="CTDD.length > 0">
-        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="stt_{{CTDD[k]['TrangThai']}}">
+        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="status_{{CTDD[k]['TrangThai']}}">
           <h4 class="m-box-title sv-title">
             {{sv.HoTen}}
             <span class="sv-masv">{{sv.MaSV}}</span>
@@ -46,13 +46,13 @@
           <div class="sv-stt">
             {{CTDD[k]['TrangThai']}}
           </div>
-          <div class="sv-note">
-            {{CTDD[k]['GhiChu']}}
+          <div class="sv-note" *ngIf="CTDD[k]['GhiChu']">
+            <b>Note*:</b> <i>{{CTDD[k]['GhiChu']}}</i>
           </div>
         </li>
       </ol>
 
-      <div class="save-diemdanh" *ngIf="CTDD.length > 0">
+      <div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false">
         <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
       </div>
     </div>

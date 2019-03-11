@@ -1,43 +1,42 @@
 page-lichhoc-detail {
   .scroll-content {
     *background: #fff !important;
-    padding: 0 0 16px !important
+    padding: 0 0 16px !important;
   }
 
   h1 {
     font-size: 21px !important;
-    color: #14b66a
+    color: #14b66a;
   }
 
   .custom-tabs-content {
     box-shadow: none !important;
     padding: 10px 15px !important;
     margin: 0;
-    text-align: justify !important
+    text-align: justify !important;
   }
 
   h4 {
-    font-size: 15px !important
+    font-size: 15px !important;
   }
 
   h5 {
     font-size: 14px !important;
-    margin: 4px 0 !important
+    margin: 4px 0 !important;
   }
 
   .alert-message {
-    display: none !important
+    display: none !important;
   }
 
-
   .dataInfo-sinhvien {
-    padding: 0 !important
+    padding: 0 !important;
   }
 
   .sv-list {
     padding: 0 !important;
     counter-reset: svlist;
-    list-style: none !important
+    list-style: none !important;
   }
 
   /*.sv-list > li{
@@ -45,34 +44,56 @@ page-lichhoc-detail {
       padding-left:5px
   }*/
   .sv-list>li {
-    padding: 8px 8px 8px 20px;
+    position: relative;
+    padding: 8px 8px 8px 38px;
+    border-bottom:1px dashed #d3d3d3
   }
 
   .sv-list>li:before {
     counter-increment: svlist;
-    content: counter(svlist);
+    content: counter(svlist)".";
+    /*color:#999;*/
     position: absolute;
-    left: 0;
-    top: 0;
+    text-align: right;
+    left: 13px;
+    top: 13px;
   }
 
-  .sv-list>li.stt_1 {
-    background: rgb(207, 236, 212)
+  .sv-stt {
+    display: none
+  }
+
+  .sv-list>li.status_1 {
+    background: rgb(207, 236, 212);
+    border-color:rgb(180, 216, 186);
+  }
+  .sv-list>li.status_-2{
+    background: rgb(243, 215, 216);
+    border-color: rgb(226, 176, 178);
+  }
+  .sv-list>li.status_-1{
+    background: rgb(255, 255, 227);
+    border-color: rgb(238, 230, 186);
+  }
+
+  .sv-note {
+    color: #777;
+    font-size: 13px
   }
 
   .sv-title {
     font-size: 16px !important;
-    margin-bottom: 0 !important
+    margin-bottom: 0 !important;
   }
 
   .sv-masv {
     color: #999;
-    font-size: 14px !important
+    font-size: 14px !important;
   }
 
   .sv-ngaysinh {
     color: #999;
-    font-size: 14px !important
+    font-size: 14px !important;
   }
 
   .save-diemdanh {
@@ -83,12 +104,12 @@ page-lichhoc-detail {
     right: 0;
     height: 50px;
     padding: 2px 30px;
-    background: rgba(255, 255, 255, .95);
+    background: rgba(255, 255, 255, 0.95);
     box-shadow: 0 -5px 5px -5px rgba(80, 80, 80, 0.12) !important;
-    text-align: right
+    text-align: right;
   }
 
   .save-diemdanh button {
-    margin: right !important
+    margin: right !important;
   }
 }

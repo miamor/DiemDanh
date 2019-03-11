@@ -54,7 +54,7 @@ export class LopMonHocDetailPage {
         this.dataInfo['title'] = this.title;
         this.MaLMH = this.navParams.data.MaLMH;
 
-        this.loadSinhVien();
+        this.loadSinhVienLMH();
         this.loadLichHoc();
 
         //this.myUsername = this.appData.getUsername();
@@ -90,8 +90,8 @@ export class LopMonHocDetailPage {
         });
     }
 
-    loadSinhVien() {
-        this.appData.loadSinhVien(this.dataInfo.MaLop).subscribe((dataInfo: any) => {
+    loadSinhVienLMH() {
+        this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataInfo: any) => {
             this.dataInfo['sinhvien'] = dataInfo;
         });
     }
@@ -137,7 +137,7 @@ export class LopMonHocDetailPage {
         this.navCtrl.push(LichHocDetailPage, { 
             MaLichHoc: data.MaLichHoc, 
             dataInfo: data, 
-            lopInfo: { MaLop: this.dataInfo.MaLop, TenLop: this.dataInfo.TenLop, NienKhoa: this.dataInfo.NienKhoa, sinhvien: this.dataInfo['sinhvien'] }, 
+            lopInfo: { /*MaLop: this.dataInfo.MaLop,*/ TenLop: this.dataInfo.TenLop, NienKhoa: this.dataInfo.NienKhoa, sinhvien: this.dataInfo['sinhvien'] }, 
             title: '[' + this.dataInfo.MaLMH + '] ' + data.Ngay 
         });
     }

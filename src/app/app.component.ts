@@ -32,7 +32,10 @@ export class MyApp {
 
     rootPage: any = HomePage;
 
-    user_info: any;
+    user_info: any = {};
+    user = {
+        HoTen: 'ABC'
+    }
 
     //pages: Array<{ title: string, component: any }>;
     pages: PageInterface[] = [
@@ -71,11 +74,23 @@ export class MyApp {
         });
         this.enableMenu(true);
 
+        this.listenToLoginEvents();
+    
     }
 
     listenToLoginEvents() {
         this.events.subscribe('user:login', () => {
             this.enableMenu(true);
+
+            this.appData.hasLoggedIn().then((hasLoggedIn) => {
+                console.log(hasLoggedIn+'~~~~~~');
+                this.enableMenu(hasLoggedIn === true);
+    
+                this.appData.getUserInfoPromise().then((data) => {
+                    console.log(data);
+                    this.user_info = data;
+                });
+            });
         });
 
         this.events.subscribe('user:signup', () => {

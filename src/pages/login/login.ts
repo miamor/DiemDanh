@@ -41,7 +41,8 @@ export class LoginPage {
                     this.events.publish('user:login');
 
                     //this.navCtrl.push(LopMonHocPage, { gvID: response.data['MaGV'] });
-                    this.navCtrl.push(LopMonHocPage);
+                    //this.navCtrl.push(LopMonHocPage);
+                    this.navCtrl.setRoot(LopMonHocPage);
                 }
             });
             //this.navCtrl.setRoot(TabsPage);

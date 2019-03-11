@@ -36,18 +36,18 @@
     <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}" *ngFor="let oneData of dataList" #slidingItem>
       <button ion-item (click)="goToDetail(oneData)">
         <div class="oneData-one-info">
-          <h3>
+          <h3 class="oneData-title">
             <span class="malh">{{oneData.MaLMH}}</span> {{oneData.TenMH}}
           </h3>
           <div class="more-info">
             <div class="sotinchi">
-              Số tín chỉ: {{oneData.SoTinChi}}
+                <ion-icon name="calendar"></ion-icon> Số tín chỉ: {{oneData.SoTinChi}} ({{oneData.TongSoBuoi}} buổi)
             </div>
-            <div class="sotinchi">
-              GV chính: {{oneData.TenGVC}}
+            <div class="gv">
+                <ion-icon name="person"></ion-icon> GV: {{oneData.TenGVC}} (GVP: {{oneData.TenGVP}})
             </div>
-            <div class="sotinchi">
-              GV phụ: {{oneData.TenGVP}}
+            <div class="tssv">
+              <ion-icon name="people"></ion-icon> Tổng số SV: {{oneData.sv_total}}
             </div>
           </div>
         </div>

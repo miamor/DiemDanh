@@ -59,10 +59,16 @@ page-lopmonhoc-detail {
 
   .b-box {
     position: relative;
-    border-left: 2px solid rgb(27, 155, 112);
+    border-left: 2px solid #ddd;
     padding-left: 14px;
+    padding-top:20px;
+    /*margin-left:-2px;*/
     margin-bottom: -10px;
-    padding-bottom: 20px
+    padding-bottom: 20px;
+  }
+
+  .b-box.dadiemdanh_true {
+    border-left-color: rgb(27, 155, 112);
   }
 
   .b-box:last-child {
@@ -73,19 +79,30 @@ page-lopmonhoc-detail {
   .b-box:before {
     content: '';
     position: absolute;
-    top: 2px;
-    left: -8px;
-    background: rgb(27, 155, 112);
+    top: 0px;
+    left: -9px;
+    background: #ddd;
     width: 16px;
     height: 16px;
     border-radius: 100%
   }
 
+  .b-box.dadiemdanh_true:before {
+    background: rgb(27, 155, 112);
+  }
+
   .b-box-title {
     /*margin-bottom: 0 !important;
     /*color:color($colors, primary)*/
-    color: rgb(19, 124, 89);
+    position: absolute;
+    top:-2px;
+    margin-top:0!important;
+    color: #aaa;
     font-weight: 600
+  }
+
+  .b-box.dadiemdanh_true .b-box-title {
+    color: rgb(19, 124, 89);
   }
 
   .b-box-content {
@@ -95,13 +112,18 @@ page-lopmonhoc-detail {
   }
 
   .dataInfo-lichhoc {
-    padding-left: 20px !important
+    padding-left: 20px !important;
+    padding-top:20px!important
   }
 
-  .lop-info h3{font-size:18px;margin:5px 0 0!important}
+  .lop-info h3 {
+    font-size: 18px;
+    margin: 5px 0 0 !important
+  }
 
   .sv-list {
-    padding-left: 25px
+    padding-left: 25px;
+    margin:5px 0 0!important
   }
 
   .sv-title {

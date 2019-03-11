@@ -22,6 +22,9 @@
 
     <div *ngIf="tabID == 'overview'" #overview class="custom-tabs-content dataInfo-overview">
       <div class="dataInfo-overview-one">
+        Số tín chỉ: {{dataInfo.SoTinChi}}
+      </div>
+      <div class="dataInfo-overview-one">
         <ion-icon name="calendar"></ion-icon> Tổng số buổi: {{dataInfo.TongSoBuoi}}
       </div>
       <div class="dataInfo-overview-one">
@@ -30,15 +33,18 @@
       <div class="dataInfo-overview-one">
         <ion-icon name="person"></ion-icon> Trợ giảng: {{dataInfo.TenGVP}}
       </div>
-      <div class="dataInfo-overview-one">
+      <!--<div class="dataInfo-overview-one">
         <ion-icon name="people"></ion-icon> Lớp: {{dataInfo.TenLop}} ({{dataInfo.NienKhoa}})
+      </div>-->
+      <div class="dataInfo-overview-one" *ngIf="dataInfo.sv_total > 0">
+        <ion-icon name="people"></ion-icon> Tổng số SV: {{dataInfo.sv_total}}
       </div>
 
     </div>
 
     <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">
       <ul>
-        <li class="b-box" *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)">
+        <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
           <h4 class="b-box-title iti-title">{{itn.Ngay}}</h4>
           <div class="b-box-content iti-content">
             <div class="iti-des">

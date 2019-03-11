@@ -251,9 +251,13 @@ ul {
 }
 
 ion-content {
-    background: #EDEDED !important
+    background: #f4f4f4 !important
 }
 
+.oneData-one .item{
+    border:1px solid #e8e8e8!important;
+    border-width:1px 0!important
+}
 
 /*.searchbar-md .searchbar-input:focus {
     background-color: #fff;
