@@ -41,9 +41,9 @@ export class AppData {
         })
     }
 
-    listLopMonHocByUserID(): any {
-        console.log(this.userID);
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv.php', {gvID: this.userID}).map((res: any) => {
+    listLopMonHocByUserID(userID: string): any {
+        console.log(userID);
+        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv.php', {gvID: userID}).map((res: any) => {
             let data = res.json();
             console.log(data);
 

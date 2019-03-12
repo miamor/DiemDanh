@@ -35,18 +35,21 @@ export class LopMonHocPage {
     ) {
         this.appData.getUserInfoPromise().then((data) => {
             this.userID = data['MaGV'];
+            console.log(this.userID);
+            this.updateList(this.userID);
         });
     }
 
     ionViewDidLoad() {
-        this.updateList();
+        //if (this.userID) {}
+        
     }
 
-    updateList() {
+    updateList(userID) {
         // Close any open sliding items when the tour updates
         this.dataList && this.dataList.closeSlidingItems();
 
-        this.appData.listLopMonHocByUserID().subscribe((dataList: any) => {
+        this.appData.listLopMonHocByUserID(userID).subscribe((dataList: any) => {
             this.dataList = dataList;
             console.log(dataList);
             /*for (var tKey in dataList) {
