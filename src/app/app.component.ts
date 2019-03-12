@@ -33,9 +33,7 @@ export class MyApp {
     rootPage: any = HomePage;
 
     user_info: any = {};
-    user = {
-        HoTen: 'ABC'
-    }
+    isLoggedIn: boolean;
 
     //pages: Array<{ title: string, component: any }>;
     pages: PageInterface[] = [
@@ -64,7 +62,8 @@ export class MyApp {
         this.initializeApp();
 
         this.appData.hasLoggedIn().then((hasLoggedIn) => {
-            console.log(hasLoggedIn);
+            //console.log(hasLoggedIn);
+            this.isLoggedIn = hasLoggedIn;
             this.enableMenu(hasLoggedIn === true);
 
             this.appData.getUserInfoPromise().then((data) => {

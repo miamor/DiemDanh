@@ -23,7 +23,7 @@
 
 
 <!-- logged in menu -->
-<ion-menu persistent="true" id="loggedInMenu" [content]="content">
+<ion-menu persistent="true" id="loggedInMenu" *ngIf="isLoggedIn" [content]="content">
 
   <ion-header>
     <ion-toolbar>
