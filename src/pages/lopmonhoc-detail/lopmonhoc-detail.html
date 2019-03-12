@@ -44,7 +44,7 @@
 
     <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">
       <ul>
-        <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
+        <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" id="{{itn.MaLichHoc}}" class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
           <h4 class="b-box-title iti-title">{{itn.Ngay}}</h4>
           <div class="b-box-content iti-content">
             <div class="iti-des">

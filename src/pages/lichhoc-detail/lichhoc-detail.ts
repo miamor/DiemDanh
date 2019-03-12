@@ -44,13 +44,12 @@ export class LichHocDetailPage {
         this.app.setTitle(this.title);
 
         this.dataInfo = this.navParams.data.dataInfo;
+        console.log(this.dataInfo);
         this.dataInfo['title'] = this.title;
         this.lopInfo = this.navParams.data.lopInfo;
 
         if (this.dataInfo.DaDiemDanh == true) {
-            this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
-                this.CTDD = data;
-            });
+            this.updateCTDD();
         } else {
             for (let i = 0; i < this.lopInfo.sinhvien.length; i++) {
                 let maSV = this.lopInfo.sinhvien[i].MaSV;
@@ -66,6 +65,12 @@ export class LichHocDetailPage {
 
         this.appData.getUserInfo().then((data) => {
             this.user_info = data;
+        });
+    }
+
+    updateCTDD() {
+        this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
+            this.CTDD = data;
         });
     }
 
@@ -187,9 +192,12 @@ export class LichHocDetailPage {
 
     saveDiemDanh() {
         let cday = new Date().toJSON().slice(0,10);
+        console.log({MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD});
         this.appData.submitDiemDanh({MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD}).subscribe((data: any) => {
             console.log('Done!!');
-            //console.log(data);
+            console.log(data);
+            this.dataInfo.DaDiemDanh = true;
+            this.updateCTDD();
         });
     }
 

@@ -61,7 +61,7 @@ export class LopMonHocPage {
     }
 
     doRefresh(refresher: Refresher) {
-        this.appData.listLopMonHocByUserID().subscribe((dataList: any) => {
+        this.appData.listLopMonHocByUserID(this.userID).subscribe((dataList: any) => {
             this.dataList = dataList;
             /*for (var tKey in dataList) {
               this.shownData[tKey] = dataList[tKey].length;
