@@ -62,7 +62,7 @@ export class MyApp {
         this.initializeApp();
 
         this.appData.hasLoggedIn().then((hasLoggedIn) => {
-            //console.log(hasLoggedIn);
+            console.log(hasLoggedIn+'~~~~~~');
             this.isLoggedIn = hasLoggedIn;
             this.enableMenu(hasLoggedIn === true);
 
@@ -83,6 +83,7 @@ export class MyApp {
 
             this.appData.hasLoggedIn().then((hasLoggedIn) => {
                 console.log(hasLoggedIn+'~~~~~~');
+                this.isLoggedIn = hasLoggedIn;
                 this.enableMenu(hasLoggedIn === true);
     
                 this.appData.getUserInfoPromise().then((data) => {
