@@ -82,6 +82,28 @@ export class LichHocDetailPage {
         }
     }
 
+    doRefresh(refresher: Refresher) {
+        //console.log(this.dataInfo.MaLichHoc);
+        this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
+            if (data != null && data.length > 0) {
+                this.dataInfo.DaDiemDanh == true
+                this.CTDD = data;
+
+                // simulate a network request that would take longer
+                // than just pulling from out local json file
+                setTimeout(() => {
+                    refresher.complete();
+
+                    const toast = this.toastCtrl.create({
+                        message: 'Updated.',
+                        duration: 3000
+                    });
+                    toast.present();
+                }, 1000);
+            }
+        });
+    }
+
 
     ionViewWillEnter() {
         /*this.appData.loadTour(this.navParams.data.dataInfoId).subscribe((data: any) => {
@@ -91,18 +113,32 @@ export class LichHocDetailPage {
     }
 
 
-    DiemDanh(index: number, sv: any) {
-        let alert = this.alertCtrl.create({
-            title: sv.HoTen,
-            message: 'Mã SV: ' + sv.MaSV + '<br/>Ngày sinh: ' + sv.NgaySinh,
-            inputs: [
-                {
-                    name: 'stt',
-                    type: 'radio',
-                    label: 'Có mặt',
-                    value: '1',
-                    checked: this.CTDD[index].TrangThai == 1
-                },
+    DiemDanh_popup(index: number, sv: any, showComat: boolean = true) {
+        let inputsRadio = [
+            {
+                name: 'stt',
+                type: 'radio',
+                label: 'Có mặt',
+                value: '1',
+                checked: this.CTDD[index].TrangThai == 1
+            },
+            {
+                name: 'stt',
+                type: 'radio',
+                label: 'Vắng phép',
+                value: '-1',
+                checked: this.CTDD[index].TrangThai == -1
+            },
+            {
+                name: 'stt',
+                type: 'radio',
+                label: 'Vắng không phép',
+                value: '-2',
+                checked: this.CTDD[index].TrangThai == -2
+            }
+        ];
+        if (showComat == false) {
+            inputsRadio = [
                 {
                     name: 'stt',
                     type: 'radio',
@@ -117,7 +153,12 @@ export class LichHocDetailPage {
                     value: '-2',
                     checked: this.CTDD[index].TrangThai == -2
                 }
-            ],
+            ]
+        }
+        let alert = this.alertCtrl.create({
+            title: sv.HoTen,
+            message: 'Mã SV: ' + sv.MaSV + '<br/>Ngày sinh: ' + sv.NgaySinh,
+            inputs: inputsRadio,
             buttons: [
                 {
                     text: 'Cancel',
@@ -190,10 +231,66 @@ export class LichHocDetailPage {
     }
 
 
+    DiemDanh(index: number, sv: any, type: number) {
+        let submitData = {
+            MaSV: sv.MaSV,
+            TrangThai: type,
+            GhiChu: ''
+        };
+
+        let alertNote = this.alertCtrl.create({
+            title: 'Ghi chú',
+            message: 'Mã SV: ' + sv.MaSV + '<br/>Ngày sinh: ' + sv.NgaySinh,
+            inputs: [
+                {
+                    name: 'note',
+                    type: 'text',
+                    placeholder: 'Ghi chú'
+                }
+            ],
+            buttons: [
+                {
+                    text: 'Skip',
+                    role: 'cancel',
+                    cssClass: 'secondary',
+                }, {
+                    text: 'Ok',
+                    handler: (datan: any) => {
+                        submitData.GhiChu = datan.note;
+                    }
+                }
+            ]
+        });
+        alertNote.present();
+
+        this.CTDD[index] = submitData;
+    }
+
+    swipeEvent($e, index: number, sv: any) {
+        if (this.dataInfo.DaDiemDanh == true) return;
+
+        let status = 0;
+        //console.log($e);
+        //let cPointer = $e.changedPointers[0];
+        if ($e.offsetDirection == 4) { // left to right (co mat)
+            let submitData = {
+                MaSV: sv.MaSV,
+                TrangThai: 1,
+                GhiChu: ''
+            };
+
+            this.CTDD[index] = submitData;
+            //console.log(this.CTDD);
+        } else if ($e.offsetDirection == 2) { // right to left
+            this.DiemDanh_popup(index, sv, false)
+        }
+
+    }
+
     saveDiemDanh() {
-        let cday = new Date().toJSON().slice(0,10);
-        console.log({MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD});
-        this.appData.submitDiemDanh({MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD}).subscribe((data: any) => {
+        let cday = new Date().toJSON().slice(0, 10);
+        console.log({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD });
+        this.appData.submitDiemDanh({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD }).subscribe((data: any) => {
             console.log('Done!!');
             console.log(data);
             this.dataInfo.DaDiemDanh = true;

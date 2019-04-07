@@ -42,8 +42,18 @@ export class AppData {
     }
 
     listLopMonHocByUserID(userID: string): any {
-        console.log(userID);
+        //console.log(userID);
         return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv.php', {gvID: userID}).map((res: any) => {
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })
+    }
+
+    listLopMonHocByUserID_week(userID: string): any {
+        //console.log(userID);
+        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv_in_week.php', {gvID: userID}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -112,15 +122,15 @@ export class AppData {
         headers.append('Content-Type', 'application/json');
 
         return this.http.post('http://localhost/DiemDanh/api/login.php', params).map((res: any) => {
-            console.log(res);
+            //console.log(res);
             let data = res.json();
-            console.log(data);
+            //console.log(data);
 
             return data
         })/*.subscribe(response => {
             console.log(response);
             if (response.status == 'success') {
-                this.storage.set(this.HAS_LOGGED_IN, true);
+                this.storage.set('hasLoggedIn', true);
 
                 this.storage.set('user_info', response.user_info);
 
@@ -131,9 +141,17 @@ export class AppData {
         })*/
     }
 
+    logout(): void {
+        this.storage.remove('hasLoggedIn');
+        this.storage.remove('username');
+        //this.storage.remove('token');
+        this.storage.remove('user_info');
+        this.events.publish('user:logout');
+    };
+
     hasLoggedIn(): Promise<boolean> {
-        return this.storage.get(this.HAS_LOGGED_IN).then((value) => {
-            console.log(value)
+        return this.storage.get('hasLoggedIn').then((value) => {
+            console.log('hasLoggedIn = '+value)
             return value == true;
         });
     };

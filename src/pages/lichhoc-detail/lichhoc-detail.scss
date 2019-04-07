@@ -39,46 +39,53 @@ page-lichhoc-detail {
     list-style: none !important;
   }
 
-  /*.sv-list > li{
-      margin-left: 25px!important;
-      padding-left:5px
-  }*/
-  .sv-list>li {
+  .sv-one>button {
     position: relative;
-    padding: 8px 8px 8px 38px;
-    border-bottom:1px dashed #d3d3d3
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0 12px 0 38px;
+    border-bottom: 1px dashed #d3d3d3;
   }
 
-  .sv-list>li:before {
+  .sv-one:before {
     counter-increment: svlist;
-    content: counter(svlist)".";
+    content: counter(svlist) ".";
+    z-index: 2;
     /*color:#999;*/
     position: absolute;
     text-align: right;
     left: 13px;
-    top: 13px;
+    top: 19px;
   }
+
+  /*.sv-one{
+      margin-left: 25px!important;
+      padding-left:5px
+  }*/
 
   .sv-stt {
-    display: none
+    display: none;
   }
 
-  .sv-list>li.status_1 {
+  .sv-one.status_1>button {
     background: rgb(207, 236, 212);
-    border-color:rgb(180, 216, 186);
+    border-color: rgb(180, 216, 186);
   }
-  .sv-list>li.status_-2{
+
+  .sv-one.status_-2>button {
     background: rgb(243, 215, 216);
     border-color: rgb(226, 176, 178);
   }
-  .sv-list>li.status_-1{
+
+  .sv-one.status_-1>button {
     background: rgb(255, 255, 227);
     border-color: rgb(238, 230, 186);
   }
 
   .sv-note {
     color: #777;
-    font-size: 13px
+    font-size: 13px;
   }
 
   .sv-title {
@@ -99,6 +106,7 @@ page-lichhoc-detail {
   .save-diemdanh {
     list-style: none !important;
     position: fixed !important;
+    z-index:5;
     bottom: 0;
     left: 0;
     right: 0;
@@ -111,5 +119,9 @@ page-lichhoc-detail {
 
   .save-diemdanh button {
     margin: right !important;
+  }
+
+  .item-inner {
+    border-bottom: 0 !important
   }
 }

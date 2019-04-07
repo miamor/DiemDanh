@@ -32,13 +32,14 @@ export class LoginPage {
 
         if (form.valid) {
             this.appData.login(this.loginParams).subscribe(response => {
-                console.log(response);
                 if (response.status == 'success') {
-                    this.storage.set(this.appData.HAS_LOGGED_IN, true);
+                    this.storage.set('hasLoggedIn', true);
 
                     this.storage.set('user_info', response.data);
 
-                    this.events.publish('user:login');
+                    console.log(response);
+
+                    this.events.publish('user:login', response.data);
 
                     //this.navCtrl.push(LopMonHocPage, { gvID: response.data['MaGV'] });
                     //this.navCtrl.push(LopMonHocPage);

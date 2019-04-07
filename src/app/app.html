@@ -1,5 +1,5 @@
 <!-- logged out menu -->
-<ion-menu persistent="true" id="loggedOutMenu" *ngIf="isLoggedIn == false" [content]="content">
+<ion-menu persistent="true" id="loggedOutMenu" [content]="content">
   <ion-header>
     <ion-toolbar>
       <ion-title>Menu</ion-title>
@@ -23,7 +23,7 @@
 
 
 <!-- logged in menu -->
-<ion-menu persistent="true" id="loggedInMenu" *ngIf="isLoggedIn == true" [content]="content">
+<ion-menu persistent="true" id="loggedInMenu" [content]="content">
 
   <ion-header>
     <ion-toolbar>

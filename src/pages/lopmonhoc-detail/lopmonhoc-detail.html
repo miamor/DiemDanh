@@ -43,8 +43,12 @@
     </div>
 
     <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">
+      <ion-refresher (ionRefresh)="refresh_lichhoc($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <ul>
-        <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" id="{{itn.MaLichHoc}}" class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
+        <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" id="{{itn.MaLichHoc}}"
+          class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
           <h4 class="b-box-title iti-title">{{itn.Ngay}}</h4>
           <div class="b-box-content iti-content">
             <div class="iti-des">
@@ -62,6 +66,9 @@
     </div>
 
     <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
+      <ion-refresher (ionRefresh)="refresh_dssv($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
       <!--<div class="lop-info">
         <h3>{{dataInfo.TenLop}}</h3>
         <div class="year">{{dataInfo.NienKhoa}}</div>

@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
+
+    <ion-title>
+      Lịch học
+      <div class="clearfix"></div>
+    </ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content class="no-scroll">
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
+
+
+  <div class="custom-tabs">
+    <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
+      {{tab.value}}
+    </a>
+  </div>
+
+  <div *ngFor="let tab of tabs | keys">
+    <div *ngIf="tabID == tab.key" class="custom-tabs-content dataInfo-about">
+
+      <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
+        <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}"
+          *ngFor="let oneData of dataList" #slidingItem>
+          <button ion-item (click)="goToDetail(oneData)">
+            <div class="oneData-one-info">
+              <h3 class="oneData-title">
+                <span class="malh">{{oneData.MaLMH}}</span> {{oneData.TenMH}}
+              </h3>
+              <div class="more-info">
+                <div class="sotinchi">
+                  <ion-icon name="calendar"></ion-icon> Số tín chỉ: {{oneData.SoTinChi}} ({{oneData.TongSoBuoi}} buổi)
+                </div>
+                <div class="gv">
+                  <ion-icon name="person"></ion-icon> GV: {{oneData.TenGVC}} (GVP: {{oneData.TenGVP}})
+                </div>
+                <div class="tssv">
+                  <ion-icon name="people"></ion-icon> Tổng số SV: {{oneData.sv_total}}
+                </div>
+              </div>
+            </div>
+          </button>
+        </ion-item-sliding>
+      </ion-list>
+
+      <ion-list-header [hidden]="shownData > 0">
+        No data found
+      </ion-list-header>
+
+    </div>
+  </div>
+
+</ion-content>

@@ -19,12 +19,14 @@ import { AppData } from '../providers/app-data';
 import { LoginPage } from '../pages/login/login';
 import { LopMonHocDetailPage } from '../pages/lopmonhoc-detail/lopmonhoc-detail';
 import { LichHocDetailPage } from '../pages/lichhoc-detail/lichhoc-detail';
+import { LichPage } from '../pages/lich/lich';
 
 @NgModule({
   declarations: [
     MyApp,
     HomePage,
     LoginPage,
+    LichPage,
     MonHocPage,
     LopMonHocPage,
     LopMonHocDetailPage,
@@ -43,6 +45,7 @@ import { LichHocDetailPage } from '../pages/lichhoc-detail/lichhoc-detail';
     MyApp,
     HomePage,
     LoginPage,
+    LichPage,
     MonHocPage,
     LopMonHocPage,
     LopMonHocDetailPage,

@@ -9,6 +9,7 @@ import { HomePage } from '../pages/home/home';
 import { MonHocPage } from '../pages/monhoc/monhoc';
 import { LopMonHocPage } from '../pages/lopmonhoc/lopmonhoc';
 import { LoginPage } from '../pages/login/login';
+import { LichPage } from '../pages/lich/lich';
 //import { LopMonHocDetailPage } from '../pages/lopmonhoc-detail/lopmonhoc-detail';
 import { AppData } from '../providers/app-data';
 
@@ -37,14 +38,16 @@ export class MyApp {
 
     //pages: Array<{ title: string, component: any }>;
     pages: PageInterface[] = [
-        { title: 'Home', component: HomePage },
-        { title: 'MonHoc', component: MonHocPage },
+        { title: 'Trang chủ', component: HomePage },
+        { title: 'Môn học', component: MonHocPage },
     ];
     loggedInPages: PageInterface[] = [
-        { title: 'LopMonHoc', component: LopMonHocPage },
+        { title: 'Lớp môn học', component: LopMonHocPage },
+        //{ title: 'Logout', component: HomePage, logsOut: true }
+        { title: 'Đăng xuất', component: MonHocPage, logsOut: true }
     ];
     loggedOutPages: PageInterface[] = [
-        { title: 'Login', component: LoginPage },
+        { title: 'Đăng nhập', component: LoginPage },
     ];
 
     constructor(
@@ -61,7 +64,7 @@ export class MyApp {
     ) {
         this.initializeApp();
 
-        this.appData.hasLoggedIn().then((hasLoggedIn) => {
+        /*this.appData.hasLoggedIn().then((hasLoggedIn) => {
             this.isLoggedIn = hasLoggedIn;
             console.log(hasLoggedIn+'~~~~~~');
             this.enableMenu(hasLoggedIn === true);
@@ -71,26 +74,30 @@ export class MyApp {
                 this.user_info = data;
             });
         });
-        this.enableMenu(true);
+        this.enableMenu(true);*/
+        this.appData.getUserInfoPromise().then((data) => {
+            console.log(data);
+            if (data != null) {
+                this.isLoggedIn = true;
+                this.enableMenu(true);
+
+                console.log('this.isLoggedIn = ' + this.isLoggedIn);
+                this.user_info = data;
+            }
+        });
 
         this.listenToLoginEvents();
-    
+
     }
 
     listenToLoginEvents() {
-        this.events.subscribe('user:login', () => {
+        this.events.subscribe('user:login', (user_info) => {
+            //console.log(user_info);
+            this.isLoggedIn = true;
             this.enableMenu(true);
 
-            this.appData.hasLoggedIn().then((hasLoggedIn) => {
-                this.isLoggedIn = hasLoggedIn;
-                console.log(hasLoggedIn+'~~~~~~');
-                this.enableMenu(hasLoggedIn === true);
-    
-                this.appData.getUserInfoPromise().then((data) => {
-                    console.log(data);
-                    this.user_info = data;
-                });
-            });
+            //console.log('this.isLoggedIn = ' + this.isLoggedIn);
+            this.user_info = user_info;
         });
 
         this.events.subscribe('user:signup', () => {
@@ -104,6 +111,7 @@ export class MyApp {
 
 
     enableMenu(loggedIn: boolean) {
+        console.log('enableMenu ~ ' + loggedIn);
         this.menu.enable(loggedIn, 'loggedInMenu');
         this.menu.enable(!loggedIn, 'loggedOutMenu');
     }
@@ -122,5 +130,20 @@ export class MyApp {
         // Reset the content nav to have just this page
         // we wouldn't want the back button to show in this scenario
         this.nav.setRoot(page.component);
+        
+        if (page.logsOut === true) {
+            // Give the menu time to close before changing to logged out
+            //this.appData.logout();
+            this.storage.remove('hasLoggedIn');
+            //this.storage.remove('username');
+            //this.storage.remove('token');
+            this.storage.remove('user_info');
+            this.isLoggedIn = false;
+            this.events.publish('user:logout');
+
+            //this.nav.popToRoot();
+        } else {
+            
+        }
     }
 }

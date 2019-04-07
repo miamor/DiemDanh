@@ -85,21 +85,20 @@ export class LopMonHocDetailPage {
 
 
     loadLichHoc() {
-        this.appData.loadLichHoc(this.MaLMH).subscribe((dataInfo: any) => {
-            this.dataInfo['lichhoc'] = dataInfo;
+        this.appData.loadLichHoc(this.MaLMH).subscribe((dataList: any) => {
+            this.dataInfo['lichhoc'] = dataList;
         });
     }
 
     loadSinhVienLMH() {
-        this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataInfo: any) => {
-            this.dataInfo['sinhvien'] = dataInfo;
+        this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataList: any) => {
+            this.dataInfo['sinhvien'] = dataList;
         });
     }
 
-    doRefresh(refresher: Refresher) {
+    refresh_lichhoc(refresher: Refresher) {
         this.appData.loadLichHoc(this.MaLMH).subscribe((dataList: any) => {
             this.dataInfo['lichhoc'] = dataList;
-            //this.shownData = dataList.length;
 
             // simulate a network request that would take longer
             // than just pulling from out local json file
@@ -108,6 +107,24 @@ export class LopMonHocDetailPage {
 
                 const toast = this.toastCtrl.create({
                     message: 'Schedules have been updated.',
+                    duration: 3000
+                });
+                toast.present();
+            }, 1000);
+        });
+    }
+
+    refresh_dssv(refresher: Refresher) {
+        this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataList: any) => {
+            this.dataInfo['sinhvien'] = dataList;
+
+            // simulate a network request that would take longer
+            // than just pulling from out local json file
+            setTimeout(() => {
+                refresher.complete();
+
+                const toast = this.toastCtrl.create({
+                    message: 'Students list has been updated.',
                     duration: 3000
                 });
                 toast.present();

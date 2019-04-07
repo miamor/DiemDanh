@@ -1,0 +1,12 @@
+page-lich {
+    .label-md{margin:10px 0!important}
+    h3.oneData-title{
+        font-size:16px;
+        margin-bottom:4px
+    }
+    .oneData-title .malh{
+        color:#666;font-size:14px!important
+    }
+    .oneData-title .malh:before{content:'['}
+    .oneData-title .malh:after{content:']'}
+}

@@ -31,13 +31,9 @@
       </div>
     </div>
 
-    <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
-      <!--<div class="lop-info">
-        <h3>{{lopInfo.TenLop}}</h3>
-        <div class="year">{{lopInfo.NienKhoa}}</div>
-      </div>-->
-      <ol class="sv-list" *ngIf="CTDD.length > 0">
-        <li class="m-box" *ngFor="let sv of lopInfo.sinhvien; let k = index" (click)="DiemDanh(k, sv)" class="status_{{CTDD[k]['TrangThai']}}">
+    <!--<div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
+      <ion-list class="sv-list" *ngIf="CTDD.length > 0">
+        <button ion-item *ngFor="let sv of lopInfo.sinhvien; let k = index" class="sv-one status_{{CTDD[k]['TrangThai']}}" (swipe)="swipeEvent($event, k, sv)">
           <h4 class="m-box-title sv-title">
             {{sv.HoTen}}
             <span class="sv-masv">{{sv.MaSV}}</span>
@@ -49,12 +45,48 @@
           <div class="sv-note" *ngIf="CTDD[k]['GhiChu']">
             <b>Note*:</b> <i>{{CTDD[k]['GhiChu']}}</i>
           </div>
-        </li>
-      </ol>
+        </button>
+      </ion-list>
 
       <div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false">
         <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
       </div>
+    </div>-->
+
+    <ion-list class="custom-tabs-content dataInfo-sinhvien sv-list" #oneDataList *ngIf="tabID == 'sinhvien'">
+      <ion-refresher (ionRefresh)="doRefresh($event)">
+        <ion-refresher-content></ion-refresher-content>
+      </ion-refresher>
+      <ion-item-sliding class="sv-one status_{{CTDD[k]['TrangThai']}}" [hidden]="CTDD.length <= 0"
+        *ngFor="let sv of lopInfo.sinhvien; let k = index">
+
+        <button ion-item (swipe)="swipeEvent($event, k, sv)">
+          <h4 class="m-box-title sv-title">
+            {{sv.HoTen}}
+            <span class="sv-masv">{{sv.MaSV}}</span>
+          </h4>
+          <div class="sv-ngaysinh">{{sv.NgaySinh}}</div>
+          <div class="sv-stt">
+            {{CTDD[k]['TrangThai']}}
+          </div>
+          <div class="sv-note" *ngIf="CTDD[k]['GhiChu']">
+            <b>Note*:</b> <i>{{CTDD[k]['GhiChu']}}</i>
+          </div>
+        </button>
+
+        <!--<ion-item-options>
+          <button ion-button color="warning" (click)="DiemDanh(k, sv, -1)">
+            Vắng phép
+          </button>
+          <button ion-button color="danger" (click)="DiemDanh(k, sv, -2)">
+            Vắng không phép
+          </button>
+        </ion-item-options>-->
+      </ion-item-sliding>
+    </ion-list>
+
+    <div class="save-diemdanh" *ngIf="tabID == 'sinhvien' && CTDD.length > 0 && dataInfo.DaDiemDanh == false">
+      <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
     </div>
 
 
