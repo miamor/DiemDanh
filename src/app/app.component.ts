@@ -43,6 +43,7 @@ export class MyApp {
     ];
     loggedInPages: PageInterface[] = [
         { title: 'Lớp môn học', component: LopMonHocPage },
+        { title: 'Lịch', component: LichPage },
         //{ title: 'Logout', component: HomePage, logsOut: true }
         { title: 'Đăng xuất', component: MonHocPage, logsOut: true }
     ];

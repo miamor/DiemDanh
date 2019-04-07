@@ -5,6 +5,7 @@ import { AlertController, App, ItemSliding, List, ModalController, NavController
 import { AppData } from '../../providers/app-data';
 
 import { LopMonHocDetailPage } from '../lopmonhoc-detail/lopmonhoc-detail';
+import { LichHocDetailPage } from '../lichhoc-detail/lichhoc-detail'
 
 @Component({
     selector: 'page-lich',
@@ -20,13 +21,13 @@ export class LichPage {
 
     tabID: string;
     tabs = {
-        Mon: 'Thứ 2',
-        Tue: 'Thứ 3',
-        Wed: 'Thứ 4',
-        Thu: 'Thứ 5',
-        Fri: 'Thứ 6',
-        Sat: 'Thứ 7',
-        Sun: 'Chủ nhật'
+        Mon: 'Mon',
+        Tue: 'Tue',
+        Wed: 'Wed',
+        Thu: 'Thu',
+        Fri: 'Fri',
+        Sat: 'Sat',
+        Sun: 'Sun'
     };
     activated = {
         Mon: 0,
@@ -63,7 +64,7 @@ export class LichPage {
 
     ionViewDidLoad() {
         //if (this.userID) {}
-        
+
     }
 
     changeTab(id) {
@@ -86,6 +87,11 @@ export class LichPage {
             }*/
             this.shownData = dataList.length;
             //console.log(this.shownData);
+
+            var d = new Date();
+            var dayName = d.toString().split(' ')[0];
+            console.log(dayName);
+            this.changeTab(dayName);
         });
     }
 
@@ -134,10 +140,42 @@ export class LichPage {
         });*/
     }
 
+    ItiDetail(data: any) {
+        console.log('ItiDetail called ');
+
+        /*let modal = this.modalCtrl.create(ItineraryPage, { itinerary: this.dataInfo.itinerary, current: current_day });
+        modal.present();
+
+        modal.onWillDismiss((data?: any) => {
+            if (data) {
+                console.log(data);
+            }
+        });
+
+        modal.onDidDismiss((data?: any) => {
+            console.log(data);
+            if (data && data != undefined) {
+                this.navCtrl.push(TripMyDetailPage, { tripId: data.id, tripInfo: data, name: data.title });
+            }
+        });*/
+
+        this.appData.loadSinhVienLMH(data.MaLMH).subscribe((dataList: any) => {
+            console.log(dataList);
+
+            this.navCtrl.push(LichHocDetailPage, {
+                MaLichHoc: data.MaLichHoc,
+                dataInfo: data,
+                lopInfo: { /*TenLop: data.TenLop, NienKhoa: data.NienKhoa,*/ sinhvien: dataList },
+                title: '[' + data.MaLMH + '] ' + data.Ngay
+            });
+        });
+
+    }
+
     goToDetail(oneData: any) {
         // go to the tour detail page
         // and pass in the tour data
 
-        this.navCtrl.push(LopMonHocDetailPage, { MaLMH: oneData.MaLMH, dataInfo: oneData, title: '['+oneData.MaLMH+'] '+oneData.TenMH });
+        this.navCtrl.push(LopMonHocDetailPage, { MaLMH: oneData.MaLMH, dataInfo: oneData, title: '[' + oneData.MaLMH + '] ' + oneData.TenMH });
     }
 }

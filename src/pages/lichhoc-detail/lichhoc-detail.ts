@@ -88,19 +88,19 @@ export class LichHocDetailPage {
             if (data != null && data.length > 0) {
                 this.dataInfo.DaDiemDanh == true
                 this.CTDD = data;
-
-                // simulate a network request that would take longer
-                // than just pulling from out local json file
-                setTimeout(() => {
-                    refresher.complete();
-
-                    const toast = this.toastCtrl.create({
-                        message: 'Updated.',
-                        duration: 3000
-                    });
-                    toast.present();
-                }, 1000);
             }
+
+            // simulate a network request that would take longer
+            // than just pulling from out local json file
+            setTimeout(() => {
+                refresher.complete();
+
+                const toast = this.toastCtrl.create({
+                    message: 'Updated.',
+                    duration: 3000
+                });
+                toast.present();
+            }, 1000);
         });
     }
 

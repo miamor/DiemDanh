@@ -27,10 +27,10 @@
   <div *ngFor="let tab of tabs | keys">
     <div *ngIf="tabID == tab.key" class="custom-tabs-content dataInfo-about">
 
-      <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
+      <ion-list class="custom-tabs-content" #oneDataList *ngIf="dataList[tab.key] != null && dataList[tab.key].length > 0">
         <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}"
-          *ngFor="let oneData of dataList" #slidingItem>
-          <button ion-item (click)="goToDetail(oneData)">
+          *ngFor="let oneData of dataList[tab.key]" #slidingItem>
+          <button ion-item (click)="ItiDetail(oneData)">
             <div class="oneData-one-info">
               <h3 class="oneData-title">
                 <span class="malh">{{oneData.MaLMH}}</span> {{oneData.TenMH}}
@@ -51,7 +51,7 @@
         </ion-item-sliding>
       </ion-list>
 
-      <ion-list-header [hidden]="shownData > 0">
+      <ion-list-header *ngIf="dataList[tab.key] == null || dataList[tab.key] == undefined || dataList[tab.key].length <= 0">
         No data found
       </ion-list-header>
 
