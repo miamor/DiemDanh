@@ -40,6 +40,11 @@
         <ion-icon name="people"></ion-icon> Tổng số SV: {{dataInfo.sv_total}}
       </div>
 
+      <div class="dataInfo-overview-one">
+        <ion-icon name="calendar"></ion-icon> Lịch học: {{daysName[dataInfo.Thu]}} (từ tiết {{dataInfo.TietBD}} -
+        {{dataInfo.TietKT}})
+      </div>
+
     </div>
 
     <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">

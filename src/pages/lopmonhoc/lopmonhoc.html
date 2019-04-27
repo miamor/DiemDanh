@@ -33,7 +33,8 @@
   </ion-refresher>
 
   <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
-    <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}" *ngFor="let oneData of dataList" #slidingItem>
+    <ion-item-sliding class="oneData-one gvc-{{oneData.MaGVC == userID}} gvp-{{oneData.MaGVP == userID}}"
+      *ngFor="let oneData of dataList" #slidingItem>
       <button ion-item (click)="goToDetail(oneData)">
         <div class="oneData-one-info">
           <h3 class="oneData-title">
@@ -41,13 +42,20 @@
           </h3>
           <div class="more-info">
             <div class="sotinchi">
-                <ion-icon name="calendar"></ion-icon> Số tín chỉ: {{oneData.SoTinChi}} ({{oneData.TongSoBuoi}} buổi)
+              <ion-icon name="calendar"></ion-icon> Số tín chỉ: {{oneData.SoTinChi}} ({{oneData.TongSoBuoi}} buổi)
             </div>
-            <div class="gv">
-                <ion-icon name="person"></ion-icon> GV: {{oneData.TenGVC}} (GVP: {{oneData.TenGVP}})
+            <div class="gvc">
+              <ion-icon name="person"></ion-icon> GVC: {{oneData.TenGVC}}
+            </div>
+            <div class="gvp">
+              <ion-icon name="person"></ion-icon> GVP: {{oneData.TenGVP}}
             </div>
             <div class="tssv">
               <ion-icon name="people"></ion-icon> Tổng số SV: {{oneData.sv_total}}
+            </div>
+
+            <div class="thu">
+              <ion-icon name="calendar"></ion-icon> Lịch học: {{daysName[oneData.Thu]}} (từ tiết {{oneData.TietBD}} - {{oneData.TietKT}})
             </div>
           </div>
         </div>

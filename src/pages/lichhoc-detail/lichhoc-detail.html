@@ -29,6 +29,23 @@
           Tiết kết thúc: {{dataInfo.TietKetThuc}}
         </div>
       </div>
+
+
+      <div class="import-dsdd" *ngIf="dataInfo.DaDiemDanh == false">
+        <h4>Import DS điểm danh</h4>
+        <input type="file" (change)="onFileChange($event)" multiple="false" />
+        <button ion-button color="primary" (click)="import()">Import</button>
+        <!--<button ion-button color="secondary" (click)="export()">Export Data</button>-->
+        <h5>Preview</h5>
+        <ion-grid>
+          <ion-row *ngFor="let row of data">
+            <ion-col *ngFor="let val of row">
+              {{val}}
+            </ion-col>
+          </ion-row>
+        </ion-grid>
+      </div>
+
     </div>
 
     <!--<div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">

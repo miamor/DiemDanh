@@ -4,6 +4,11 @@ import { AlertController, App, List, ModalController, NavController, ToastContro
 
 import { AppData } from '../../providers/app-data';
 
+import * as XLSX from 'xlsx';
+import { File } from '@ionic-native/file/ngx';
+
+type AOA = any[][];
+
 @Component({
     selector: 'page-lichhoc-detail',
     templateUrl: 'lichhoc-detail.html'
@@ -28,6 +33,8 @@ export class LichHocDetailPage {
 
     user_info: any;
 
+    data: any[][] //= [[1,2,3],[4,5,6]];
+
     constructor(
         public alertCtrl: AlertController,
         public navParams: NavParams,
@@ -36,7 +43,8 @@ export class LichHocDetailPage {
         public modalCtrl: ModalController,
         public navCtrl: NavController,
         public toastCtrl: ToastController,
-        public appData: AppData
+        public appData: AppData,
+        public file: File
     ) {
         this.CTDD = [];
 
@@ -55,7 +63,7 @@ export class LichHocDetailPage {
                 let maSV = this.lopInfo.sinhvien[i].MaSV;
                 this.CTDD[i] = {
                     MaSV: maSV,
-                    TrangThai: 0,
+                    TrangThai: 1, // mac dinh co mat
                     GhiChu: ''
                 }
             }
@@ -66,7 +74,9 @@ export class LichHocDetailPage {
         this.appData.getUserInfo().then((data) => {
             this.user_info = data;
         });
+
     }
+
 
     updateCTDD() {
         this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
@@ -297,5 +307,113 @@ export class LichHocDetailPage {
             this.updateCTDD();
         });
     }
+
+
+
+
+
+
+    read(bstr: string) {
+        /* read workbook */
+        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+        /* grab first sheet */
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+        /* save data */
+        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+
+        console.log(this.data);
+    }
+
+    write(): XLSX.WorkBook {
+        /* generate worksheet */
+        const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
+
+        /* generate workbook and add the worksheet */
+        const wb: XLSX.WorkBook = XLSX.utils.book_new();
+        XLSX.utils.book_append_sheet(wb, ws, 'SheetJS');
+
+        return wb;
+    }
+
+    /* File Input element for browser */
+    onFileChange(evt: any) {
+        /* wire up file reader */
+        const target: DataTransfer = <DataTransfer>(evt.target);
+        if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+        const reader: FileReader = new FileReader();
+        reader.onload = (e: any) => {
+            const bstr: string = e.target.result;
+            this.read(bstr);
+        };
+        reader.readAsBinaryString(target.files[0]);
+    }
+
+    import() {
+        this.CTDD = [];
+        for (let i = 1; i < this.data.length; i++) {
+            this.CTDD[i] = {
+                MaSV: this.data[i][1],
+                TrangThai: this.data[i][3],
+                GhiChu: this.data[i][4]
+            }
+        }
+
+        let cday = new Date().toJSON().slice(0, 10);
+        console.log({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD });
+
+        this.appData.submitDiemDanh({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD }).subscribe((data: any) => {
+            console.log('Done!!');
+            console.log(data);
+            
+            this.dataInfo.DaDiemDanh = true;
+            this.updateCTDD();
+        });
+    }
+
+
+    // Import button for mobile
+    /*async import() {
+        try {
+            const target: string = this.file.documentsDirectory || this.file.externalDataDirectory || this.file.dataDirectory || '';
+            const dentry = await this.file.resolveDirectoryUrl(target);
+            const url: string = dentry.nativeURL || '';
+            alert(`Attempting to read SheetJSIonic.xlsx from ${url}`)
+            const bstr: string = await this.file.readAsBinaryString(url, "SheetJSIonic.xlsx");
+            this.read(bstr);
+        } catch (e) {
+            const m: string = e.message;
+            alert(m.match(/It was determined/) ? "Use File Input control" : `Error: ${m}`);
+        }
+    }
+
+    // Export button
+    async export() {
+        const wb: XLSX.WorkBook = this.write();
+        const filename: string = "SheetJSIonic.xlsx";
+        try {
+            // generate Blob
+            const wbout: ArrayBuffer = XLSX.write(wb, { bookType: 'xlsx', type: 'array' });
+            const blob: Blob = new Blob([wbout], { type: 'application/octet-stream' });
+
+            // find appropriate path for mobile
+            const target: string = this.file.documentsDirectory || this.file.externalDataDirectory || this.file.dataDirectory || '';
+            const dentry = await this.file.resolveDirectoryUrl(target);
+            const url: string = dentry.nativeURL || '';
+
+            // attempt to save blob to file
+            await this.file.writeFile(url, filename, blob, { replace: true });
+            alert(`Wrote to SheetJSIonic.xlsx in ${url}`);
+        } catch (e) {
+            if (e.message.match(/It was determined/)) {
+                // in the browser, use writeFile
+                XLSX.writeFile(wb, filename);
+            }
+            else alert(`Error: ${e.message}`);
+        }
+    }*/
+
 
 }

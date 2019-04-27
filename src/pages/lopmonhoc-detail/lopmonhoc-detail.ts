@@ -34,6 +34,16 @@ export class LopMonHocDetailPage {
 
     user_info: any;
 
+    daysName: any = {
+        Mon: 'Thứ 2',
+        Tue: 'Thứ 3',
+        Wed: 'Thứ 4',
+        Thu: 'Thứ 5',
+        Fri: 'Thứ 6',
+        Sat: 'Thứ 7',
+        Sun: 'Chủ nhật'
+    };
+
     constructor(
         public alertCtrl: AlertController,
         public navParams: NavParams,
