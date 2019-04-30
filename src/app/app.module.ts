@@ -21,6 +21,8 @@ import { LoginPage } from '../pages/login/login';
 import { LopMonHocDetailPage } from '../pages/lopmonhoc-detail/lopmonhoc-detail';
 import { LichHocDetailPage } from '../pages/lichhoc-detail/lichhoc-detail';
 import { LichPage } from '../pages/lich/lich';
+import { ImportDetailPage } from '../pages/import-detail/import-detail';
+import { StatPage } from '../pages/stat/stat';
 
 @NgModule({
   declarations: [
@@ -31,7 +33,9 @@ import { LichPage } from '../pages/lich/lich';
     MonHocPage,
     LopMonHocPage,
     LopMonHocDetailPage,
+    ImportDetailPage,
     LichHocDetailPage,
+    StatPage
   ],
   imports: [
     BrowserModule,
@@ -50,7 +54,9 @@ import { LichPage } from '../pages/lich/lich';
     MonHocPage,
     LopMonHocPage,
     LopMonHocDetailPage,
+    ImportDetailPage,
     LichHocDetailPage,
+    StatPage
   ],
   providers: [
     File,

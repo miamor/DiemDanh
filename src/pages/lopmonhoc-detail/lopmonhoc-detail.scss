@@ -16,11 +16,14 @@ page-lopmonhoc-detail {
     color: #14b66a
   }
 
+  .custom-tabs{position: fixed;z-index: 20;top:55px}
+
   .custom-tabs-content {
     box-shadow: none !important;
     padding: 10px 15px !important;
     margin: 0;
-    text-align: justify !important
+    text-align: justify !important;
+    margin-top:43px
   }
 
   .v-box {
@@ -61,7 +64,7 @@ page-lopmonhoc-detail {
     position: relative;
     border-left: 2px solid #ddd;
     padding-left: 14px;
-    padding-top:20px;
+    padding-top: 20px;
     /*margin-left:-2px;*/
     margin-bottom: -10px;
     padding-bottom: 20px;
@@ -95,8 +98,8 @@ page-lopmonhoc-detail {
     /*margin-bottom: 0 !important;
     /*color:color($colors, primary)*/
     position: absolute;
-    top:-2px;
-    margin-top:0!important;
+    top: -2px;
+    margin-top: 0 !important;
     color: #aaa;
     font-weight: 600
   }
@@ -113,7 +116,7 @@ page-lopmonhoc-detail {
 
   .dataInfo-lichhoc {
     padding-left: 20px !important;
-    padding-top:20px!important
+    padding-top: 20px !important
   }
 
   .lop-info h3 {
@@ -123,7 +126,7 @@ page-lopmonhoc-detail {
 
   .sv-list {
     padding-left: 25px;
-    margin:5px 0 0!important
+    margin: 5px 0 0 !important
   }
 
   .sv-title {
@@ -140,4 +143,89 @@ page-lopmonhoc-detail {
     color: #999;
     font-size: 14px !important
   }
+
+  ion-fab {
+    position: fixed !important
+  }
+
+  .iti-des {
+    font-size: 12px
+  }
+
+
+  .scroll-content {
+    overflow: auto !important
+  }
+
+  ion-content {
+    *background: #fff !important;
+    overflow: auto !important
+  }
+
+  .stat {
+    position: relative;
+    width: 800px;
+    padding: 0
+  }
+
+  .stat ion-col.col {
+    border: 1px solid #ddd;
+    border-width: 0 1px 1px 0;
+    min-width: 60px !important;
+    min-height: 60px !important
+      /*;flex-grow:none!important;flex-basis:none!important;-webkit-flex-basis:none!important;-webkit-flex-grow:none!important*/
+  }
+
+  .stat .row .col:first-child {
+    *position: fixed;
+    width: 100px !important;
+    min-width: 130px !important;
+    background: #fff !important;
+    // white-space: nowrap;
+    // overflow: hidden;
+    // text-overflow: ellipsis;
+    *z-index: 10
+  }
+
+  .stat .row:first-child .col {
+    height: 30px !important;
+    text-align: center;
+    *line-height: 39px !important;
+    background: #fff !important
+  }
+
+  .stat .row:not(:first-child) .col * {
+    font-size: 13px
+  }
+
+  .stat .row .col:nth-child(2) {
+    *margin-left: 100px !important
+  }
+
+  .stat .row{-webkit-flex-wrap:nowrap;flex-wrap:nowrap}
+  .stat.grid{position: absolute!important}
+  .stat .row:first-child{position: sticky!important;top:43px;z-index:10}
+
+  .dataInfo-thongke{padding:0!important}
+
+  .stat .row:not(:first-child) ion-col.col:not(:first-child){border:0!important}
+  .ctdd{position: relative}
+  .ctdd > div{font-size:0!important;position: absolute;top:0;left:0;right:0;bottom:0;border:1px solid #ddd;border-width:0 1px 1px 0}
+
+  .ctdd > div.stt_1 {
+    background: rgb(207, 236, 212);
+    border-color: rgb(180, 216, 186);
+  }
+  .ctdd > div:not(.stt_0){border-width:1px!important;margin:-1px 0 0 -1px!important;z-index:5}
+
+  .ctdd > div.stt_-2 {
+    background: rgb(243, 215, 216);
+    border-color: rgb(226, 176, 178);
+  }
+
+  .ctdd > div.stt_-1 {
+    background: rgb(255, 255, 227);
+    border-color: rgb(238, 230, 186);
+  }
+
 }

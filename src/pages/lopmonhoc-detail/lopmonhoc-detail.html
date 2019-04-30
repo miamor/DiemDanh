@@ -20,64 +20,39 @@
     </div>
 
 
-    <div *ngIf="tabID == 'overview'" #overview class="custom-tabs-content dataInfo-overview">
-      <div class="dataInfo-overview-one">
-        Số tín chỉ: {{dataInfo.SoTinChi}}
-      </div>
-      <div class="dataInfo-overview-one">
-        <ion-icon name="calendar"></ion-icon> Tổng số buổi: {{dataInfo.TongSoBuoi}}
-      </div>
-      <div class="dataInfo-overview-one">
-        <ion-icon name="person"></ion-icon> GV chính: {{dataInfo.TenGVC}}
-      </div>
-      <div class="dataInfo-overview-one">
-        <ion-icon name="person"></ion-icon> Trợ giảng: {{dataInfo.TenGVP}}
-      </div>
-      <!--<div class="dataInfo-overview-one">
-        <ion-icon name="people"></ion-icon> Lớp: {{dataInfo.TenLop}} ({{dataInfo.NienKhoa}})
-      </div>-->
-      <div class="dataInfo-overview-one" *ngIf="dataInfo.sv_total > 0">
-        <ion-icon name="people"></ion-icon> Tổng số SV: {{dataInfo.sv_total}}
-      </div>
-
-      <div class="dataInfo-overview-one">
-        <ion-icon name="calendar"></ion-icon> Lịch học: {{daysName[dataInfo.Thu]}} (từ tiết {{dataInfo.TietBD}} -
-        {{dataInfo.TietKT}})
-      </div>
-
-    </div>
-
     <div *ngIf="tabID == 'lichhoc'" class="custom-tabs-content dataInfo-lichhoc">
       <ion-refresher (ionRefresh)="refresh_lichhoc($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher>
+
       <ul>
         <li *ngFor="let itn of dataInfo.lichhoc; let k = index" (click)="ItiDetail(itn)" id="{{itn.MaLichHoc}}"
           class="b-box dadiemdanh_{{itn.DaDiemDanh}}">
           <h4 class="b-box-title iti-title">{{itn.Ngay}}</h4>
           <div class="b-box-content iti-content">
-            <div class="iti-des">
-              Phòng học: {{itn.Phonghoc}}
+            <div class="iti-des" *ngIf="itn.DaDiemDanh == true">
+              {{itn['tongvang']}} / {{dataInfo['sv_total']}} vắng ({{itn['vp']}} có phép, {{itn['vkp']}}
+              không phép)
             </div>
-            <div class="iti-start">
-              Tiết bắt đầu: {{itn.TietBatDau}}
-            </div>
-            <div class="iti-end">
-              Tiết kết thúc: {{itn.TietKetThuc}}
+            <div class="iti-des" *ngIf="itn.DaDiemDanh == false">
+              Chưa điểm danh
             </div>
           </div>
         </li>
       </ul>
     </div>
 
+    <ion-fab bottom right #fab *ngIf="tabID == 'sinhvien' && dataInfo.sinhvien.length <= 0">
+      <input type="file" (change)="onFileChange($event)" multiple="false" />
+      <!--<button ion-fab (click)="AddDSDD()">
+        <ion-icon name="plus"></ion-icon>
+      </button>-->
+    </ion-fab>
+
     <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
-      <ion-refresher (ionRefresh)="refresh_dssv($event)">
+      <!--<ion-refresher (ionRefresh)="refresh_dssv($event)">
         <ion-refresher-content></ion-refresher-content>
-      </ion-refresher>
-      <!--<div class="lop-info">
-        <h3>{{dataInfo.TenLop}}</h3>
-        <div class="year">{{dataInfo.NienKhoa}}</div>
-      </div>-->
+      </ion-refresher> -->
       <ol class="sv-list" *ngIf="dataInfo.sinhvien.length > 0">
         <li class="m-box" *ngFor="let sv of dataInfo.sinhvien">
           <h4 class="m-box-title sv-title">
@@ -87,6 +62,30 @@
           <div class="sv-ngaysinh">{{sv.NgaySinh}}</div>
         </li>
       </ol>
+    </div>
+
+    <div *ngIf="tabID == 'thongke'" class="custom-tabs-content dataInfo-thongke">
+      <ion-grid class="stat" *ngIf="dataInfo.sinhvien.length > 0">
+
+        <!-- title -->
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col *ngFor="let itn of dataInfo.lichhoc">
+            <div>
+              {{itn.Ngay.split('/')[0]}}/{{itn.Ngay.split('/')[1]}}
+            </div>
+          </ion-col>
+        </ion-row>
+        <!-- số tiết -->
+        <ion-row *ngFor="let sv of dataInfo.sinhvien">
+          <ion-col>{{sv.HoTen}}</ion-col>
+          <ion-col class="ctdd" *ngFor="let itn of dataInfo.lichhoc">
+              <div *ngIf="dataInfo.stat[sv.MaSV][itn.MaLichHoc]" class="stt_{{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}">{{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}</div>
+              <div *ngIf="!dataInfo.stat[sv.MaSV][itn.MaLichHoc]" class="stt_0">0</div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+
     </div>
 
 

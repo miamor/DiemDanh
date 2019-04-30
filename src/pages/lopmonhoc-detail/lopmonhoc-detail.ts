@@ -6,12 +6,19 @@ import { AppData } from '../../providers/app-data';
 
 import { LichHocDetailPage } from '../lichhoc-detail/lichhoc-detail'
 
+import * as XLSX from 'xlsx';
+import { File } from '@ionic-native/file/ngx';
+import { ImportDetailPage } from '../import-detail/import-detail';
+
+type AOA = any[][];
 
 @Component({
     selector: 'page-lopmonhoc-detail',
     templateUrl: 'lopmonhoc-detail.html'
 })
 export class LopMonHocDetailPage {
+    DSSV: any;
+
     dataInfo: any;
     MaLMH: any;
     title: any;
@@ -19,17 +26,18 @@ export class LopMonHocDetailPage {
     //sinhvienList: any;
     //lichhocList: any;
 
-    showVbox: { overview: boolean, itinerary: boolean, price: boolean };
     tabID: string;
     tabs = {
-        overview: 'Overview',
+        // overview: 'Overview',
         lichhoc: 'Lịch học',
-        sinhvien: 'Sinh viên'
+        sinhvien: 'Sinh viên',
+        thongke: 'Thống kê'
     };
     activated = {
-        overview: 0,
+        // overview: 0,
         lichhoc: 0,
-        sinhvien: 0
+        sinhvien: 0,
+        thongke: 0
     };
 
     user_info: any;
@@ -44,6 +52,8 @@ export class LopMonHocDetailPage {
         Sun: 'Chủ nhật'
     };
 
+    data: any[][] //= [[1,2,3],[4,5,6]];
+
     constructor(
         public alertCtrl: AlertController,
         public navParams: NavParams,
@@ -52,11 +62,9 @@ export class LopMonHocDetailPage {
         public modalCtrl: ModalController,
         public navCtrl: NavController,
         public toastCtrl: ToastController,
-        public appData: AppData
+        public appData: AppData,
+        public file: File
     ) {
-        this.showVbox = { overview: true, itinerary: false, price: false };
-        //console.log(this.showVbox);
-
         this.title = this.navParams.data.title;
         this.app.setTitle(this.title);
 
@@ -66,9 +74,10 @@ export class LopMonHocDetailPage {
 
         this.loadSinhVienLMH();
         this.loadLichHoc();
+        this.loadStat();
 
         //this.myUsername = this.appData.getUsername();
-        this.changeTab('overview');
+        this.changeTab('lichhoc');
         this.appData.getUserInfo().then((data) => {
             this.user_info = data;
         });
@@ -89,14 +98,20 @@ export class LopMonHocDetailPage {
         }
     }
 
-    toggleVbox(boxID) {
-        this.showVbox[boxID] = !this.showVbox[boxID];
+    parseInt(n) {
+        return parseInt(n)
     }
-
 
     loadLichHoc() {
         this.appData.loadLichHoc(this.MaLMH).subscribe((dataList: any) => {
             this.dataInfo['lichhoc'] = dataList;
+        });
+    }
+
+    loadStat() {
+        this.appData.loadStat(this.MaLMH).subscribe((dataList: any) => {
+            this.dataInfo['stat'] = dataList;
+            console.log(this.dataInfo['stat'])
         });
     }
 
@@ -161,12 +176,102 @@ export class LopMonHocDetailPage {
             }
         });*/
 
-        this.navCtrl.push(LichHocDetailPage, { 
-            MaLichHoc: data.MaLichHoc, 
-            dataInfo: data, 
-            lopInfo: { /*MaLop: this.dataInfo.MaLop,*/ TenLop: this.dataInfo.TenLop, NienKhoa: this.dataInfo.NienKhoa, sinhvien: this.dataInfo['sinhvien'] }, 
-            title: '[' + this.dataInfo.MaLMH + '] ' + data.Ngay 
+        this.navCtrl.push(LichHocDetailPage, {
+            MaLichHoc: data.MaLichHoc,
+            dataInfo: data,
+            lopInfo: { /*MaLop: this.dataInfo.MaLop,*/ TenLop: this.dataInfo.TenLop, NienKhoa: this.dataInfo.NienKhoa, sinhvien: this.dataInfo['sinhvien'] },
+            title: '[' + this.dataInfo.MaLMH + '] ' + data.Ngay
         });
+    }
+
+
+    AddDSDD() {
+
+    }
+
+
+    read(bstr: string) {
+        /* read workbook */
+        const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
+
+        /* grab first sheet */
+        const wsname: string = wb.SheetNames[0];
+        const ws: XLSX.WorkSheet = wb.Sheets[wsname];
+
+        /* save data */
+        this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
+        console.log(this.data);
+
+
+        let modal = this.modalCtrl.create(ImportDetailPage, { data: this.data });
+        modal.present();
+
+        modal.onWillDismiss((data?: any) => {
+            // console.log(data);
+        });
+
+        modal.onDidDismiss((data?: any) => {
+            console.log('modal dismissed');
+            console.log(data);
+            if (data && data != undefined) {
+                this.import()
+            }
+        });
+    }
+
+    /* File Input element for browser */
+    onFileChange(evt: any) {
+        /* wire up file reader */
+        const target: DataTransfer = <DataTransfer>(evt.target);
+        if (target.files.length !== 1) throw new Error('Cannot use multiple files');
+        const reader: FileReader = new FileReader();
+        reader.onload = (e: any) => {
+            const bstr: string = e.target.result;
+            this.read(bstr);
+        };
+        reader.readAsBinaryString(target.files[0]);
+    }
+
+    import() {
+        console.log(this.data);
+        
+        this.DSSV = [];
+        for (let i = 8; i < this.data.length - 15; i++) {
+            this.DSSV.push({
+                MaSV: this.data[i][1],
+                HoTen: this.data[i][2],
+                NgaySinh: this.data[i][3],
+                Lop: this.data[i][4]
+            })
+        }
+
+        if (this.DSSV) {
+            console.log({ MaLMH: this.dataInfo['MaLMH'], DSSV: this.DSSV });
+
+            this.appData.submitDSSV({ MaLMH: this.dataInfo['MaLMH'], DSSV: this.DSSV }).subscribe((data: any) => {
+                console.log('Done!!');
+                console.log(data);
+
+                this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataList: any) => {
+                    this.dataInfo['sinhvien'] = dataList;
+        
+                    // simulate a network request that would take longer
+                    // than just pulling from out local json file
+                    setTimeout(() => {
+        
+                        const toast = this.toastCtrl.create({
+                            message: 'Students list has been updated.',
+                            duration: 3000
+                        });
+                        toast.present();
+                    }, 1000);
+                });
+            });
+        }
+    }
+
+    updateDSSV() {
+
     }
 
 }

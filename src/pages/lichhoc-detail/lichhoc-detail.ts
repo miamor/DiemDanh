@@ -21,15 +21,15 @@ export class LichHocDetailPage {
     title: any;
     lopInfo: any;
 
-    tabID: string;
-    tabs = {
-        about: 'About',
-        sinhvien: 'Điểm danh'
-    };
-    activated = {
-        about: 0,
-        sinhvien: 0
-    };
+    // tabID: string;
+    // tabs = {
+    //     about: 'About',
+    //     sinhvien: 'Điểm danh'
+    // };
+    // activated = {
+    //     about: 0,
+    //     sinhvien: 0
+    // };
 
     user_info: any;
 
@@ -56,20 +56,21 @@ export class LichHocDetailPage {
         this.dataInfo['title'] = this.title;
         this.lopInfo = this.navParams.data.lopInfo;
 
-        if (this.dataInfo.DaDiemDanh == true) {
-            this.updateCTDD();
-        } else {
-            for (let i = 0; i < this.lopInfo.sinhvien.length; i++) {
-                let maSV = this.lopInfo.sinhvien[i].MaSV;
-                this.CTDD[i] = {
-                    MaSV: maSV,
-                    TrangThai: 1, // mac dinh co mat
-                    GhiChu: ''
-                }
+        for (let i = 0; i < this.lopInfo.sinhvien.length; i++) {
+            let maSV = this.lopInfo.sinhvien[i].MaSV;
+            this.CTDD[i] = {
+                MaSV: maSV,
+                TrangThai: 1, // mac dinh co mat
+                GhiChu: ''
             }
         }
 
-        this.changeTab('about');
+        if (this.dataInfo.DaDiemDanh == true) {
+            this.updateCTDD();
+        } else {
+        }
+
+        // this.changeTab('about');
 
         this.appData.getUserInfo().then((data) => {
             this.user_info = data;
@@ -80,17 +81,21 @@ export class LichHocDetailPage {
 
     updateCTDD() {
         this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
+            // console.log(data);
+            // console.log(this.lopInfo.sinhvien)
             this.CTDD = data;
+
+            console.log(this.CTDD)
         });
     }
 
-    changeTab(id) {
-        this.tabID = id;
-        for (var _i in this.tabs) {
-            if (_i == id) this.activated[_i] = 'active';
-            else this.activated[_i] = '';
-        }
-    }
+    // changeTab(id) {
+    //     this.tabID = id;
+    //     for (var _i in this.tabs) {
+    //         if (_i == id) this.activated[_i] = 'active';
+    //         else this.activated[_i] = '';
+    //     }
+    // }
 
     doRefresh(refresher: Refresher) {
         //console.log(this.dataInfo.MaLichHoc);

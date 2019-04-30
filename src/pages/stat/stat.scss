@@ -1,4 +1,4 @@
-page-lopmonhoc {
+page-stat {
     .label-md{margin:10px 0!important}
     h3.oneData-title{
         font-size:16px;
@@ -10,5 +10,5 @@ page-lopmonhoc {
     .oneData-title .malh:before{content:'['}
     .oneData-title .malh:after{content:']'}
 
-    .oneData-one{margin-bottom: 20px}
+    .scroll-content{overflow: auto!important}
 }

@@ -9,4 +9,14 @@ page-lich {
     }
     .oneData-title .malh:before{content:'['}
     .oneData-title .malh:after{content:']'}
+
+    .scroll-content{overflow: auto!important}
+    ion-content{*background:#fff!important;overflow: auto!important}
+    .tkb{position: relative;width:800px;padding:0}
+    .tkb ion-col.col{border:1px solid #ddd;border-width:1px 1px 0 0;width:60px!important;min-height:60px!important/*;flex-grow:none!important;flex-basis:none!important;-webkit-flex-basis:none!important;-webkit-flex-grow:none!important*/}
+    .tkb .row:last-child .col{border-bottom-width:1px}
+    .tkb .row .col:first-child{position: fixed;width:60px!important;background: #fff!important;z-index:10}
+    .tkb .row:first-child .col{height:30px!important;text-align: center;*line-height: 39px!important;background: #fff!important}
+    .tkb .row:not(:first-child) .col *{font-size:13px}
+    .tkb .row .col:nth-child(2){margin-left:60px!important}
 }

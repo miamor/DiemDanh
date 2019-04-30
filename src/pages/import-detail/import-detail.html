@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons start>
+            <button ion-button (click)="dismiss()">Cancel</button>
+            <button ion-button (click)="import()">Import</button>
+        </ion-buttons>
+
+    <ion-title>
+      Import DS DD
+    </ion-title>
+
+  </ion-toolbar>
+
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row *ngFor="let row of data">
+      <ion-col *ngFor="let val of row">
+        {{val}}
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

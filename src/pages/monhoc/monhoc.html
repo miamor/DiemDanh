@@ -1,15 +1,15 @@
 <ion-header>
-    <ion-navbar no-border-bottom>
-        <button ion-button menuToggle>
-            <ion-icon name="menu"></ion-icon>
-          </button>
-      
-        <ion-title>
-            Mon Hoc
-            <div class="clearfix"></div>
-        </ion-title>
+  <ion-navbar no-border-bottom>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
 
-        <!--<button ion-button menuToggle>
+    <ion-title>
+      Mon Hoc
+      <div class="clearfix"></div>
+    </ion-title>
+
+    <!--<button ion-button menuToggle>
             <ion-icon name="menu"></ion-icon>
         </button>
 
@@ -23,27 +23,30 @@
                 <ion-icon ios="ios-options-outline" md="md-options"></ion-icon>
             </button>
         </ion-buttons>-->
-    </ion-navbar>
+  </ion-navbar>
 
 </ion-header>
 
 <ion-content class="no-scroll">
-    <ion-refresher (ionRefresh)="doRefresh($event)">
-        <ion-refresher-content></ion-refresher-content>
-    </ion-refresher>
+  <ion-refresher (ionRefresh)="doRefresh($event)">
+    <ion-refresher-content></ion-refresher-content>
+  </ion-refresher>
 
-    <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
-        <ion-item-sliding class="oneData-one" *ngFor="let oneData of dataList" #slidingItem>
-            <button ion-item (click)="goToDetail(oneData)">
-                <div class="oneData-one-info">
-                    <h3>{{oneData.TenMH}}</h3>
-                    <div class="sotinchi text-md-primary">
-                        {{oneData.SoTinChi}}
-                    </div>
-                </div>
-            </button>
+  <ion-list class="custom-tabs-content" #oneDataList [hidden]="shownData === 0">
+    <ion-item-sliding class="oneData-one" *ngFor="let oneData of dataList" #slidingItem>
+      <button ion-item (click)="goToDetail(oneData)">
+        <div class="oneData-one-info">
+          <h3>{{oneData.TenMH}}</h3>
+          <div class="des">
+            Số tín chỉ: {{oneData.SoTinChi}}
+          </div>
+          <div class="des">
+            Số tiết: {{oneData.SoTiet}}
+          </div>
+        </div>
+      </button>
 
-            <!--<ion-item-options>
+      <!--<ion-item-options>
                 <button ion-button color="favorite" (click)="addFavorite(slidingItem, oneData)" *ngIf="segment === 'all'">
                     Favorite
                 </button>
@@ -52,15 +55,15 @@
                 </button>
             </ion-item-options>-->
 
-        </ion-item-sliding>
+    </ion-item-sliding>
 
-    </ion-list>
+  </ion-list>
 
 
 
-    <ion-list-header [hidden]="shownData > 0">
-        No data found
-    </ion-list-header>
+  <ion-list-header [hidden]="shownData > 0">
+    No data found
+  </ion-list-header>
 
 
 </ion-content>

@@ -64,11 +64,13 @@ page-lichhoc-detail {
       padding-left:5px
   }*/
 
+  .sv-list{margin-bottom:50px!important}
+
   .sv-stt {
     display: none;
   }
 
-  .sv-one.status_1>button {
+  .dadiemdanh_true .sv-one.status_1>button {
     background: rgb(207, 236, 212);
     border-color: rgb(180, 216, 186);
   }

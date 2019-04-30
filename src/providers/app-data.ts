@@ -79,6 +79,15 @@ export class AppData {
         })
     }
 
+    loadStat(MaLMH: string): any {
+        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/stat.php', {MaLMH: MaLMH}).map((res: any) => {
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })
+    }
+
     loadSinhVien(MaLop: string): any {
         return this.http.post('http://localhost/DiemDanh/api/sinhvien/get_by_malop.php', {MaLop: MaLop}).map((res: any) => {
             let data = res.json();
@@ -116,6 +125,14 @@ export class AppData {
         })
     }
 
+    submitDSSV(params: any): any {
+        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/submitDSSV.php', params).map((res: any) => {
+            let data = res.json();
+            console.log(data);
+
+            return data
+        })
+    }
 
     login(params: any) {
         let headers = new Headers();

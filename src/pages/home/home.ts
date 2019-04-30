@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { App, NavController, NavParams } from 'ionic-angular';
+
+import { AppData } from '../../providers/app-data';
 
 @Component({
   selector: 'page-home',
@@ -7,7 +9,20 @@ import { NavController } from 'ionic-angular';
 })
 export class HomePage {
 
-  constructor(public navCtrl: NavController) {
+    user_info: any;
+
+    constructor(
+        public navParams: NavParams,
+        public app: App,
+        public navCtrl: NavController,
+        public appData: AppData
+    ) {
+
+    this.appData.getUserInfo().then((data) => {
+        console.log(data);
+        this.user_info = data;
+    });
+
 
   }
 
