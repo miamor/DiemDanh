@@ -43,10 +43,10 @@
     </div>
 
     <ion-fab bottom right #fab *ngIf="tabID == 'sinhvien' && dataInfo.sinhvien.length <= 0">
-      <input type="file" (change)="onFileChange($event)" multiple="false" />
-      <!--<button ion-fab (click)="AddDSDD()">
+      <input id="input_file" class="hidden" type="file" (change)="onFileChange($event)" multiple="false" />
+      <button ion-fab (click)="AddDSDD()">
         <ion-icon name="plus"></ion-icon>
-      </button>-->
+      </button>
     </ion-fab>
 
     <div *ngIf="tabID == 'sinhvien'" class="custom-tabs-content dataInfo-sinhvien">
@@ -80,8 +80,10 @@
         <ion-row *ngFor="let sv of dataInfo.sinhvien">
           <ion-col>{{sv.HoTen}}</ion-col>
           <ion-col class="ctdd" *ngFor="let itn of dataInfo.lichhoc">
-              <div *ngIf="dataInfo.stat[sv.MaSV][itn.MaLichHoc]" class="stt_{{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}">{{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}</div>
-              <div *ngIf="!dataInfo.stat[sv.MaSV][itn.MaLichHoc]" class="stt_0">0</div>
+            <div *ngIf="dataInfo.stat[sv.MaSV][itn.MaLichHoc]"
+              class="stt_{{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}">
+              {{dataInfo.stat[sv.MaSV][itn.MaLichHoc]['TrangThai']}}</div>
+            <div *ngIf="!dataInfo.stat[sv.MaSV][itn.MaLichHoc]" class="stt_0">0</div>
           </ion-col>
         </ion-row>
       </ion-grid>

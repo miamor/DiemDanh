@@ -9,6 +9,7 @@ import { UserOptions } from '../../interfaces/user-options';
 
 import { AppData } from '../../providers/app-data';
 import { LopMonHocPage } from '../lopmonhoc/lopmonhoc';
+import { HomePage } from '../home/home';
 
 
 @Component({
@@ -18,6 +19,7 @@ import { LopMonHocPage } from '../lopmonhoc/lopmonhoc';
 export class LoginPage {
     loginParams: UserOptions = { username: '', password: '' };
     submitted = false;
+    userID: any;
 
     constructor(
         public navCtrl: NavController,
@@ -25,7 +27,15 @@ export class LoginPage {
         public storage: Storage,
         //public userData: UserData
         public appData: AppData
-    ) { }
+    ) { 
+        this.appData.getUserInfoPromise().then((data) => {
+            if (data) {
+                this.userID = data['MaSV'];
+                this.navCtrl.setRoot(HomePage);
+            }
+        });
+
+    }
 
     onLogin(form: NgForm) {
         this.submitted = true;
@@ -43,7 +53,7 @@ export class LoginPage {
 
                     //this.navCtrl.push(LopMonHocPage, { gvID: response.data['MaGV'] });
                     //this.navCtrl.push(LopMonHocPage);
-                    this.navCtrl.setRoot(LopMonHocPage);
+                    this.navCtrl.setRoot(HomePage);
                 }
             });
             //this.navCtrl.setRoot(TabsPage);

@@ -186,7 +186,7 @@ export class LopMonHocDetailPage {
 
 
     AddDSDD() {
-
+        document.getElementById('input_file').click();
     }
 
 
