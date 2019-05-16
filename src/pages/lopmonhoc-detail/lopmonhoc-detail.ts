@@ -150,6 +150,7 @@ export class LopMonHocDetailPage {
 
     refresh_lichhoc(refresher: Refresher) {
         this.appData.loadLichHoc(this.MaLMH).subscribe((dataList: any) => {
+            
             this.dataInfo['lichhoc'] = dataList;
 
             // simulate a network request that would take longer
@@ -168,6 +169,31 @@ export class LopMonHocDetailPage {
 
     refresh_dssv(refresher: Refresher) {
         this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataList: any) => {
+            dataList.sort(function(a, b){
+                // console.log(a.HoTen)
+                if (a.HoTen && b.HoTen) {
+                    let tenA = a.HoTen.split(/[, ]+/),
+                        tenB = b.HoTen.split(/[, ]+/);
+                    
+                    while (tenA.length && tenB.length) {
+                        let textA = tenA.pop().toUpperCase(),
+                            textB = tenB.pop().toUpperCase();
+                        if (textA < textB) {
+                            return -1
+                        } else if (textA > textB) {
+                            return 1
+                        }
+                    }
+
+                    if (tenA.length) return 1;
+                    if (tenB.length) return -1;
+
+                    console.log(tenA);
+
+                }
+                return 0;
+            });
+
             this.dataInfo['sinhvien'] = dataList;
 
             // simulate a network request that would take longer
@@ -280,6 +306,31 @@ export class LopMonHocDetailPage {
                 console.log(data);
 
                 this.appData.loadSinhVienLMH(this.MaLMH).subscribe((dataList: any) => {
+                    dataList.sort(function(a, b){
+                        // console.log(a.HoTen)
+                        if (a.HoTen && b.HoTen) {
+                            let tenA = a.HoTen.split(/[, ]+/),
+                                tenB = b.HoTen.split(/[, ]+/);
+                            
+                            while (tenA.length && tenB.length) {
+                                let textA = tenA.pop().toUpperCase(),
+                                    textB = tenB.pop().toUpperCase();
+                                if (textA < textB) {
+                                    return -1
+                                } else if (textA > textB) {
+                                    return 1
+                                }
+                            }
+    
+                            if (tenA.length) return 1;
+                            if (tenB.length) return -1;
+    
+                            console.log(tenA);
+    
+                        }
+                        return 0;
+                    });
+                    
                     this.dataInfo['sinhvien'] = dataList;
         
                     // simulate a network request that would take longer
