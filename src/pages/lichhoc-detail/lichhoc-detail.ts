@@ -21,7 +21,7 @@ export class LichHocDetailPage {
     title: any;
     lopInfo: any;
 
-    allowDiemDanh: boolean;
+    allowDiemDanh: boolean = true;
 
     // tabID: string;
     // tabs = {
