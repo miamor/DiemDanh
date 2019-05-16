@@ -1,6 +1,12 @@
 /*h3.v-box-title{background: color($colors, primary);color:#fff;margin:0 -16px 10px;font-size:18px;padding:8px 16px}
 */
 
+.md{
+    page-lopmonhoc-detail {
+        .custom-tabs{position: fixed!important;z-index: 20;top:55px!important}
+    }
+}
+
 page-lopmonhoc-detail {
   .scroll-content {
     *background: #fff !important;

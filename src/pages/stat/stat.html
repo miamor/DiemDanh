@@ -17,15 +17,13 @@
     <ion-refresher-content></ion-refresher-content>
   </ion-refresher>-->
 
-
-  <div class="custom-tabs">
-    <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
-      {{tab.value}}
-    </a>
-  </div>
-
-
   <div *ngIf="tabID == 'sang'" class="custom-tabs-content dataInfo-sang">
+
+    <div class="custom-tabs">
+      <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
+        {{tab.value}}
+      </a>
+    </div>
 
     <ion-grid class="tkb tkb_sang" *ngIf="dataList">
 

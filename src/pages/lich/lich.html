@@ -5,7 +5,7 @@
     </button>
 
     <ion-title *ngIf="dataList">
-      Lịch học ({{dataList['Mon'].date}} - {{dataList['Sun'].date}})
+      Lịch học
       <div class="clearfix"></div>
     </ion-title>
   </ion-navbar>
@@ -18,14 +18,13 @@
   </ion-refresher>-->
 
 
-  <div class="custom-tabs">
-    <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
-      {{tab.value}}
-    </a>
-  </div>
-
-
   <div *ngIf="tabID == 'sang'" class="custom-tabs-content dataInfo-sang">
+
+    <div class="custom-tabs">
+      <a *ngFor="let tab of tabs | keys" (click)="changeTab(tab.key)" class="tab-item {{activated[tab.key]}}">
+        {{tab.value}}
+      </a>
+    </div>
 
     <ion-grid class="tkb tkb_sang" *ngIf="dataList">
 
@@ -34,7 +33,7 @@
         <ion-col></ion-col>
         <ion-col *ngFor="let day of daysName | keys">
           <div>
-            {{day.value}}<br/>({{dataList[day.key].date}})
+            {{day.value}}
           </div>
         </ion-col>
       </ion-row>
@@ -62,7 +61,7 @@
         <ion-col></ion-col>
         <ion-col *ngFor="let day of daysName | keys">
           <div>
-            {{day.value}}<br/>({{dataList[day.key].date}})
+            {{day.value}}
           </div>
         </ion-col>
       </ion-row>
