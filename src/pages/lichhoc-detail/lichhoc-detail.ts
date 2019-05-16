@@ -314,38 +314,35 @@ export class LichHocDetailPage {
     }
 
 
-
-
-
-
-    read(bstr: string) {
-        /* read workbook */
+    
+    /* read(bstr: string) {
+        // read workbook 
         const wb: XLSX.WorkBook = XLSX.read(bstr, { type: 'binary' });
 
-        /* grab first sheet */
+        // grab first sheet 
         const wsname: string = wb.SheetNames[0];
         const ws: XLSX.WorkSheet = wb.Sheets[wsname];
 
-        /* save data */
+        // save data 
         this.data = <AOA>(XLSX.utils.sheet_to_json(ws, { header: 1 }));
 
         console.log(this.data);
     }
 
     write(): XLSX.WorkBook {
-        /* generate worksheet */
+        // generate worksheet 
         const ws: XLSX.WorkSheet = XLSX.utils.aoa_to_sheet(this.data);
 
-        /* generate workbook and add the worksheet */
+        // generate workbook and add the worksheet 
         const wb: XLSX.WorkBook = XLSX.utils.book_new();
         XLSX.utils.book_append_sheet(wb, ws, 'SheetJS');
 
         return wb;
     }
 
-    /* File Input element for browser */
+    // File Input element for browser 
     onFileChange(evt: any) {
-        /* wire up file reader */
+        // wire up file reader
         const target: DataTransfer = <DataTransfer>(evt.target);
         if (target.files.length !== 1) throw new Error('Cannot use multiple files');
         const reader: FileReader = new FileReader();
@@ -354,7 +351,8 @@ export class LichHocDetailPage {
             this.read(bstr);
         };
         reader.readAsBinaryString(target.files[0]);
-    }
+    }*/
+
 
     import() {
         this.CTDD = [];

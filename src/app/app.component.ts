@@ -47,7 +47,7 @@ export class MyApp {
         { title: 'Thời khóa biểu', component: LichPage },
         // { title: 'Thống kê', component: StatPage },
         //{ title: 'Logout', component: HomePage, logsOut: true }
-        { title: 'Đăng xuất', component: MonHocPage, logsOut: true }
+        { title: 'Đăng xuất', component: HomePage, logsOut: true }
     ];
     loggedOutPages: PageInterface[] = [
         { title: 'Đăng nhập', component: LoginPage },

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NgForm } from '@angular/forms';
 
-import { NavController } from 'ionic-angular';
+import { NavController, ToastController } from 'ionic-angular';
 import { Events } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
@@ -26,7 +26,8 @@ export class LoginPage {
         public events: Events,
         public storage: Storage,
         //public userData: UserData
-        public appData: AppData
+        public appData: AppData,
+        public toastCtrl: ToastController,
     ) { 
         this.appData.getUserInfoPromise().then((data) => {
             if (data) {
@@ -54,6 +55,15 @@ export class LoginPage {
                     //this.navCtrl.push(LopMonHocPage, { gvID: response.data['MaGV'] });
                     //this.navCtrl.push(LopMonHocPage);
                     this.navCtrl.setRoot(HomePage);
+                } else {
+                    setTimeout(() => {
+                        
+                        const toast = this.toastCtrl.create({
+                            message: response.msg,
+                            duration: 3000
+                        });
+                        toast.present();
+                    }, 100);
                 }
             });
             //this.navCtrl.setRoot(TabsPage);
