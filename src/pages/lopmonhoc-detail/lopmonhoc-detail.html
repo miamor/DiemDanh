@@ -42,7 +42,7 @@
       </ul>
     </div>
 
-    <ion-fab bottom right #fab>
+    <ion-fab bottom right #fab *ngIf="tabID == 'sinhvien' && dataInfo.sinhvien.length <= 0">
       <input id="input_file" class="hidden" type="file" (change)="onFileChange($event)" multiple="false" />
       <button ion-fab (click)="AddDSDD()">
         <ion-icon name="plus"></ion-icon>
