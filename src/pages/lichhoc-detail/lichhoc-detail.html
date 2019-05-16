@@ -11,11 +11,11 @@
   <div class="dataInfo-detail" *ngIf="dataInfo">
 
     <ion-list class="custom-tabs-content dataInfo-sinhvien sv-list dadiemdanh_{{dataInfo.DaDiemDanh}}" #oneDataList
-      *ngIf="dataInfo.DaDiemDanh == true && CTDD.length > 0 && lopInfo.sinhvien">
+      *ngIf="dataInfo.DaDiemDanh == true && CTDD.length > 0 && CTDD">
       <!-- <ion-refresher (ionRefresh)="doRefresh($event)">
         <ion-refresher-content></ion-refresher-content>
       </ion-refresher> -->
-      <ion-item-sliding *ngFor="let sv of lopInfo.sinhvien; let k = index" class="sv-one status_{{CTDD[k]['TrangThai']}}">
+      <ion-item-sliding *ngFor="let sv of CTDD; let k = index" class="sv-one status_{{CTDD[k]['TrangThai']}}">
         <button ion-item>
           <h4 class="m-box-title sv-title">
             {{sv.HoTen}}
@@ -73,8 +73,11 @@
       </ion-item-sliding>
     </ion-list>
 
-    <div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false">
+    <div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false && allowDiemDanh == true">
       <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
+    </div>
+    <div class="save-diemdanh" *ngIf="allowDiemDanh == false">
+        <div class="dd-note text text-md-danger">Buổi học này chưa diễn ra. Không thể điểm danh.</div>
     </div>
 
 

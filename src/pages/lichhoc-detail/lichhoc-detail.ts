@@ -21,6 +21,8 @@ export class LichHocDetailPage {
     title: any;
     lopInfo: any;
 
+    allowDiemDanh: boolean;
+
     // tabID: string;
     // tabs = {
     //     about: 'About',
@@ -68,7 +70,20 @@ export class LichHocDetailPage {
         if (this.dataInfo.DaDiemDanh == true) {
             this.updateCTDD();
         } else {
+            // check if date <= today
+            let dates = this.dataInfo.Ngay.split('/'),
+                ngayhoc = new Date(dates[2], dates[1], dates[0]),
+                today = new Date();
+            console.log(ngayhoc);
+            console.log(today);
+            if (ngayhoc > today) {
+                this.allowDiemDanh = false;
+            } else {
+                this.allowDiemDanh = true;
+            }
         }
+
+        console.log(this.allowDiemDanh);
 
         // this.changeTab('about');
 
@@ -80,9 +95,35 @@ export class LichHocDetailPage {
 
 
     updateCTDD() {
+        this.allowDiemDanh = false;
+
         this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
             // console.log(data);
             // console.log(this.lopInfo.sinhvien)
+            
+            data.sort(function(a, b) {
+                if (a.HoTen && b.HoTen) {
+                    let tenA = a.HoTen.split(/[, ]+/),
+                        tenB = b.HoTen.split(/[, ]+/);
+                    
+                    while (tenA.length && tenB.length) {
+                        let textA = tenA.pop().toUpperCase(),
+                            textB = tenB.pop().toUpperCase();
+                        if (textA < textB) {
+                            return -1
+                        } else if (textA > textB) {
+                            return 1
+                        }
+                    }
+        
+                    if (tenA.length) return 1;
+                    if (tenB.length) return -1;
+        
+                    // console.log(tenA);
+                }
+                return 0;
+            });
+
             this.CTDD = data;
 
             console.log(this.CTDD)
@@ -101,7 +142,31 @@ export class LichHocDetailPage {
         //console.log(this.dataInfo.MaLichHoc);
         this.appData.getChiTietDiemDanh(this.dataInfo.MaLichHoc).subscribe((data: any) => {
             if (data != null && data.length > 0) {
-                this.dataInfo.DaDiemDanh == true
+                this.dataInfo.DaDiemDanh == true;
+
+                data.sort(function(a, b) {
+                    if (a.HoTen && b.HoTen) {
+                        let tenA = a.HoTen.split(/[, ]+/),
+                            tenB = b.HoTen.split(/[, ]+/);
+                        
+                        while (tenA.length && tenB.length) {
+                            let textA = tenA.pop().toUpperCase(),
+                                textB = tenB.pop().toUpperCase();
+                            if (textA < textB) {
+                                return -1
+                            } else if (textA > textB) {
+                                return 1
+                            }
+                        }
+            
+                        if (tenA.length) return 1;
+                        if (tenB.length) return -1;
+            
+                        // console.log(tenA);
+                    }
+                    return 0;
+                });
+                
                 this.CTDD = data;
             }
 
@@ -195,7 +260,7 @@ export class LichHocDetailPage {
                         if (data < 0) {
                             let alertNote = this.alertCtrl.create({
                                 title: 'Ghi chú',
-                                message: 'Mã SV: ' + sv.MaSV + '<br/>Ngày sinh: ' + sv.NgaySinh,
+                                message: sv.HoTen + '<br/>Mã SV: ' + sv.MaSV + '<br/>Ngày sinh: ' + sv.NgaySinh,
                                 inputs: [
                                     {
                                         name: 'note',
@@ -246,7 +311,7 @@ export class LichHocDetailPage {
     }
 
 
-    DiemDanh(index: number, sv: any, type: number) {
+    /*DiemDanh(index: number, sv: any, type: number) {
         let submitData = {
             MaSV: sv.MaSV,
             TrangThai: type,
@@ -279,7 +344,7 @@ export class LichHocDetailPage {
         alertNote.present();
 
         this.CTDD[index] = submitData;
-    }
+    }*/
 
     swipeEvent($e, index: number, sv: any) {
         if (this.dataInfo.DaDiemDanh == true) return;
@@ -295,14 +360,16 @@ export class LichHocDetailPage {
             };
 
             this.CTDD[index] = submitData;
-            //console.log(this.CTDD);
+            console.log(this.CTDD);
         } else if ($e.offsetDirection == 2) { // right to left
             this.DiemDanh_popup(index, sv, false)
         }
 
+        console.log(this.CTDD);
     }
 
     saveDiemDanh() {
+        console.log(this.CTDD);
         let cday = new Date().toJSON().slice(0, 10);
         console.log({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD });
         this.appData.submitDiemDanh({ MaLichHoc: this.dataInfo.MaLichHoc, NgayDiemDanh: cday, MaGV: this.user_info['MaGV'], CTDD: this.CTDD }).subscribe((data: any) => {
