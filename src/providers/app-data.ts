@@ -33,7 +33,7 @@ export class AppData {
     }
 
     listMonHoc(): any {
-        return this.http.get('http://localhost/DiemDanh/api/monhoc/list.php').map((res: any) => {
+        return this.http.get('http://192.168.43.239/DiemDanh/api/monhoc/list.php').map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -43,7 +43,7 @@ export class AppData {
 
     listLopMonHocByUserID(userID: string): any {
         //console.log(userID);
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv.php', {gvID: userID}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lopmonhoc/list_by_gv.php', {gvID: userID}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -53,7 +53,7 @@ export class AppData {
 
     listLopMonHocByUserID_week(userID: string): any {
         //console.log(userID);
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/list_by_gv_in_week.php', {gvID: userID}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lopmonhoc/list_by_gv_in_week.php', {gvID: userID}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -62,7 +62,7 @@ export class AppData {
     }
 
     loadLopMonHoc(MaLMH: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/readOne.php', {MaLMH: MaLMH}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lopmonhoc/readOne.php', {MaLMH: MaLMH}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -71,7 +71,7 @@ export class AppData {
     }
 
     loadLichHoc(MaLMH: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/lichhoc/get_by_malmh.php', {MaLMH: MaLMH}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lichhoc/get_by_malmh.php', {MaLMH: MaLMH}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -80,7 +80,7 @@ export class AppData {
     }
 
     loadStat(MaLMH: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/stat.php', {MaLMH: MaLMH}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lopmonhoc/stat.php', {MaLMH: MaLMH}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -89,7 +89,7 @@ export class AppData {
     }
 
     loadSinhVien(MaLop: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/sinhvien/get_by_malop.php', {MaLop: MaLop}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/sinhvien/get_by_malop.php', {MaLop: MaLop}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -98,7 +98,7 @@ export class AppData {
     }
 
     loadSinhVienLMH(MaLopMH: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/sinhvien/get_by_malmh.php', {MaLopMH: MaLopMH}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/sinhvien/get_by_malmh.php', {MaLopMH: MaLopMH}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -107,7 +107,7 @@ export class AppData {
     }
 
     getChiTietDiemDanh(MaLichHoc: string): any {
-        return this.http.post('http://localhost/DiemDanh/api/diemdanh/get_by_malichhoc.php', {MaLichHoc: MaLichHoc}).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/diemdanh/get_by_malichhoc.php', {MaLichHoc: MaLichHoc}).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -117,7 +117,7 @@ export class AppData {
 
     submitDiemDanh(params: any): any {
         console.log(params);
-        return this.http.post('http://localhost/DiemDanh/api/diemdanh/submit.php', params).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/diemdanh/submit.php', params).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -126,7 +126,7 @@ export class AppData {
     }
 
     submitDSSV(params: any): any {
-        return this.http.post('http://localhost/DiemDanh/api/lopmonhoc/submitDSSV.php', params).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/lopmonhoc/submitDSSV.php', params).map((res: any) => {
             let data = res.json();
             console.log(data);
 
@@ -138,7 +138,7 @@ export class AppData {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
 
-        return this.http.post('http://localhost/DiemDanh/api/login.php', params).map((res: any) => {
+        return this.http.post('http://192.168.43.239/DiemDanh/api/login.php', params).map((res: any) => {
             //console.log(res);
             let data = res.json();
             //console.log(data);
