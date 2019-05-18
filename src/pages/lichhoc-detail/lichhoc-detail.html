@@ -73,13 +73,12 @@
       </ion-item-sliding>
     </ion-list>
 
-    <div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false && allowDiemDanh == true">
-      <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
-    </div>
-    <div class="save-diemdanh" *ngIf="dataInfo.DaDiemDanh == false && allowDiemDanh == false">
-        <div class="dd-note text text-md-danger">Buổi học này chưa diễn ra. Không thể điểm danh.</div>
-    </div>
-
-
   </div>
 </ion-content>
+
+<div class="save-diemdanh" *ngIf="CTDD.length > 0 && dataInfo.DaDiemDanh == false && allowDiemDanh == true">
+  <button ion-button (click)="saveDiemDanh()" type="submit">Save</button>
+</div>
+<div class="save-diemdanh" *ngIf="dataInfo.DaDiemDanh == false && allowDiemDanh == false">
+  <div class="dd-note text text-md-danger">Buổi học này chưa diễn ra. Không thể điểm danh.</div>
+</div>
